@@ -5,6 +5,6 @@
 #ifndef TEST_VECTOR_H
 #define TEST_VECTOR_H
 
-void test_vector();
+void testVector();
 
 #endif //TEST_VECTOR_H

@@ -2,12 +2,11 @@
 // Created by curo on 16.02.2024.
 //
 
-#include <stdio.h>
-#include <stdint.h>
-#include "libs/data_structures/vector/vector.h"
 #include "libs/data_structures/vector/test_vector.h"
+#include "libs/data_structures/vector_void/test_vector_void.h"
 
 int main() {
-    test_vector();
+    testVector();
+    testVectorVoidDouble();
     return 0;
 }

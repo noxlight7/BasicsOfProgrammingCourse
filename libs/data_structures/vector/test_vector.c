@@ -5,7 +5,7 @@
 #include <assert.h>
 #include "test_vector.h"
 #include "vector.h"
-#include "../array/array.h"
+#include "data_structures/array/array.h"
 
 
 void test_pushBack_emptyVector(){
@@ -58,7 +58,7 @@ void test_front_oneElementInVector(){
     assert(*front(&v) == 4);
 }
 
-void test_vector(){
+void testVector(){
     test_pushBack_emptyVector();
     test_pushBack_fullVector();
     test_popBack_notEmptyVector();
