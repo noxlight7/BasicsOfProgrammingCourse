@@ -24,6 +24,8 @@ void testVectorVoidInt() {
 
         printf("%d ", x);
     }
+
+    putchar('\n');
 }
 
 void testVectorVoidDouble() {
@@ -44,4 +46,6 @@ void testVectorVoidDouble() {
 
         printf("%lf ", x);
     }
+
+    putchar('\n');
 }

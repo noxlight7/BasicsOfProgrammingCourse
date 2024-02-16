@@ -7,6 +7,7 @@
 
 int main() {
     testVector();
+    testVectorVoidInt();
     testVectorVoidDouble();
     return 0;
 }
