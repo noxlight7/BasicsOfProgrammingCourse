@@ -1,0 +1,13 @@
+include_directories (${CMAKE_CURRENT_LIST_DIR})
+
+file (GLOB_RECURSE vector ${CMAKE_CURRENT_LIST_DIR}/vector/*.[ch])
+file (GLOB_RECURSE vector_void ${CMAKE_CURRENT_LIST_DIR}/vector_void/*.[ch])
+file (GLOB_RECURSE array ${CMAKE_CURRENT_LIST_DIR}/array/*.[ch])
+file (GLOB_RECURSE matrix ${CMAKE_CURRENT_LIST_DIR}/matrix/*.[ch])
+
+set (libraries
+        ${vector}
+        ${vector_void}
+        ${array}
+        ${matrix}
+)

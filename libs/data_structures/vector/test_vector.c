@@ -5,7 +5,7 @@
 #include <assert.h>
 #include "test_vector.h"
 #include "vector.h"
-#include "data_structures/array/array.h"
+#include "array/array.h"
 
 
 void test_pushBack_emptyVector(){

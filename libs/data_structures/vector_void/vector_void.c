@@ -6,7 +6,7 @@
 #include <malloc.h>
 #include <stdlib.h>
 #include <string.h>
-#include "data_structures/array/array.h"
+#include "array/array.h"
 
 void* getAddress(vectorVoid* v, size_t index){
     return ((char*) v->data) + index * v->baseTypeSize;

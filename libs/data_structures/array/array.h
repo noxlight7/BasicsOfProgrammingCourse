@@ -50,6 +50,8 @@ bool isPalindrome(const at *a, const it n);
 // Возвращает индекс максимального элемента массива a размера n
 it findMaxUnsortedIndex(const at* a, const it n);
 
+it findMinUnsortedIndex(const at* a, const it n);
+
 // Сортировка выбором массива a размера n
 void sortByChoice(at* a, const it n);
 
@@ -129,5 +131,14 @@ it binarySearchEqualOrLessCriteria(const at* a, const size_t n, PredicateFunc fc
 
 // Копирует массив src в dst
 void copy(at *dst, const at *src, size_t size);
+
+void shellSortInt(int a[], int n);
+void shellSortIntCriteriaArray(int criteria[], void* bind_array,
+                               int bind_array_element_size, int n);
+void shellSortLL(long long a[], long long n);
+
+bool isZero(const at a[], const size_t size);
+
+int getSum(int *a, int n);
 
 # endif

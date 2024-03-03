@@ -8,6 +8,71 @@ typedef long long it;
 typedef bool(*PredicateFunc)(at);
 typedef at(*ElementFunc)(at);
 
+// реализация сортировки Шелла
+void shellSortInt(int a[], int n)
+{
+    for (int gap = n / 2; gap > 0; gap /= 2)
+    {
+        for (int i = gap; i < n; i += 1)
+        {
+            //сортировка подсписков, созданных с помощью gap
+            int temp = a[i];
+
+            int j;
+            for (j = i; j >= gap && a[j - gap] > temp; j -= gap)
+                a[j] = a[j - gap];
+
+            a[j] = temp;
+        }
+    }
+}
+
+// реализация сортировки Шелла
+void shellSortIntCriteriaArray(int *criteria, void* bind_array,
+                               int bind_array_element_size, int n)
+{
+    char temp_bind[bind_array_element_size];
+
+    for (int gap = n / 2; gap > 0; gap /= 2)
+    {
+        for (int i = gap; i < n; i += 1)
+        {
+            //сортировка подсписков, созданных с помощью gap
+            int temp = criteria[i];
+            memcpy(temp_bind, bind_array + i * bind_array_element_size, bind_array_element_size);
+
+            int j;
+            for (j = i; j >= gap && criteria[j - gap] > temp; j -= gap) {
+                criteria[j] = criteria[j - gap];
+                memcpy(bind_array + j * bind_array_element_size,
+                       bind_array + (j - gap) * bind_array_element_size,
+                       bind_array_element_size);
+            }
+
+            criteria[j] = temp;
+            memcpy(bind_array + j * bind_array_element_size, temp_bind, bind_array_element_size);
+        }
+    }
+}
+
+void shellSortLL(long long a[], long long n)
+{
+    for (long long gap = n / 2; gap > 0; gap /= 2)
+    {
+        for (long long i = gap; i < n; i += 1)
+        {
+            //сортировка подсписков, созданных с помощью gap
+            long long temp = a[i];
+
+            long long j;
+            for (j = i; j >= gap && a[j - gap] > temp; j -= gap)
+                a[j] = a[j - gap];
+
+            a[j] = temp;
+        }
+    }
+}
+
 // Ввод массива a размера n
 void inputArray(at *a, const size_t n) {
     for (size_t i = 0; i < n; i++, a++)
@@ -19,15 +84,22 @@ void outputArray(at a[], const size_t n, const char* sep) {
     for (size_t i = 1; i < n; i++, a++)
         printf("%d%s", *a, sep);
 
-    printf("%d", *a);
+    if(n)
+        printf("%d", *a);
+
+    putchar('\n');
 }
 
 bool isEqual(const at a[], const at b[], const size_t size) {
-    int i = 0;
-    while (i < size && *a == *b)
-        i++;
+    return memcmp(a, b, size * sizeof(at)) == 0;
+}
 
-    return i == size;
+bool isZero(const at a[], const size_t size) {
+    for (int i = 0; i < size; ++i)
+        if (a[i])
+            return false;
+
+    return true;
 }
 
 bool isSorted(at a[], size_t size) {
@@ -108,13 +180,30 @@ bool isPalindrome(const at *a, const it n) {
 it findMaxUnsortedIndex(const at* a, const it n) {
     int max_value = a[0];
     int max_index = 0;
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i < n; i++)
         if (max_value < a[i]) {
             max_value = a[i];
             max_index = i;
         }
 
     return max_index;
+}
+
+// Возвращает индекс минимального элемента массива a размера n
+it findMinUnsortedIndex(const at* a, const it n) {
+    int min_value = a[0];
+    int min_index = 0;
+    for (int i = 1; i < n; i++)
+        if (min_value > a[i]) {
+            min_value = a[i];
+            min_index = i;
+        }
+
+    return min_index;
+}
+
+at findMaxElement(const at* a, const it n) {
+    return a[findMaxUnsortedIndex(a, n)];
 }
 
 // Сортировка выбором массива a размера n
@@ -415,4 +504,12 @@ it binarySearchEqualOrLessCriteria(const at* a, const size_t n, PredicateFunc fc
 
 void copy(at *dst, const at *src, size_t size){
     memcpy(dst, src, size * sizeof(at));
+}
+
+int getSum(at *a, int n){
+    int result = 0;
+    for (int i = 0; i < n; i++)
+        result += a[i];
+
+    return result;
 }
