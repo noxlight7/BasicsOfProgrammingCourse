@@ -90,6 +90,17 @@ void outputArray(at a[], const size_t n, const char* sep) {
     putchar('\n');
 }
 
+// Вывод массива a размера n
+void outputArrayF(at a[], const size_t n, const char* sep, FILE* f) {
+    for (size_t i = 1; i < n; i++, a++)
+        fprintf(f, "%d%s", *a, sep);
+
+    if(n)
+        fprintf(f, "%d", *a);
+
+    fputc('\n', f);
+}
+
 bool isEqual(const at a[], const at b[], const size_t size) {
     return memcmp(a, b, size * sizeof(at)) == 0;
 }
@@ -368,8 +379,8 @@ void delNegative(at* a, size_t *n) {
     *n = i_write;
 }
 
-void insert(at* a, size_t* n, const size_t pos, int value) {
-    for (it i = *n - 1; i >= pos; i++)
+void insert(at* a, size_t* n, const it pos, int value) {
+    for (it i = *n - 1; i >= pos; i--)
         a[i + 1] = a[i];
 
     a[pos] = value;

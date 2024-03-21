@@ -130,3 +130,25 @@ int* back(vector *v){
 int* front(vector *v){
     return v->data;
 }
+
+vector createVectorFromFile(FILE *f){
+    vector v = createVector(0);
+    loadVector(&v, f);
+    return v;
+}
+
+void saveVectorData(vector v, FILE* f){
+    fwrite(v.data, sizeof(int), v.size, f);
+}
+
+void loadVector(vector *v, FILE* f){
+    size_t size;
+    fread(&size, sizeof(size_t), 1, f);
+    reserve(v, size);
+    fread(v->data, sizeof(int), size, f);
+    v->size = size;
+}
+void saveVector(vector v, FILE* f){
+    fwrite(&v.size, sizeof(size_t), 1, f);
+    saveVectorData(v, f);
+}

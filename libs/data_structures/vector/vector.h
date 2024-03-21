@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 typedef struct vector {
     int *data;
@@ -19,6 +20,12 @@ typedef struct vector {
 vector createVector(size_t n);
 // Создаёт вектор из массива a размера n
 vector createVectorFromArray(int* a, size_t n);
+
+vector createVectorFromFile(FILE *f);
+void loadVector(vector *v, FILE* f);
+void saveVector(vector v, FILE* f);
+void saveVectorData(vector v, FILE* f);
+
 // Изменяет максимальную вместимость вектора на newCapacity
 void reserve(vector *v, size_t newCapacity);
 // Очищает вектор от элементов

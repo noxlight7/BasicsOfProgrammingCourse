@@ -1,9 +1,9 @@
 //
-// Created by curo on 16.02.2024.
+// Created by curo on 21.03.2024.
 //
+#include "lab_19.h"
 
-#include "matrix/test_matrix.h"
-
-int main() {
-    test_matrix_all();
+int main(){
+    test_lab_19_all();
+    return 0;
 }

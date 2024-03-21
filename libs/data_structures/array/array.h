@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef int at;
 typedef long long it;
@@ -14,6 +15,7 @@ void inputArray(at *a, const size_t n);
 
 // Вывод массива a размера n
 void outputArray(at a[], const size_t n, const char* sep);
+void outputArrayF(at a[], const size_t n, const char* sep, FILE* f);
 
 bool isEqual(const at a[], const at b[], const size_t size);
 
@@ -100,7 +102,7 @@ it getMaxEvenChainLen(const at* a, const size_t n);
 
 void delNegative(at* a, size_t *n);
 
-void insert(at* a, size_t* n, const size_t pos, int value);
+void insert(at* a, size_t* n, const it pos, int value);
 
 void deletePosSaveOrder(at* a, size_t* n, const size_t pos);
 

@@ -43,7 +43,6 @@ void freeMemMatrices(matrix *ms, int nMatrices){
 }
 
 void inputMatrix(matrix *m){
-    scanf("%i%i", &m->nRows, &m->nCols);
     for (int row_index = 0; row_index < m->nRows; ++row_index)
         for (int col_index = 0; col_index < m->nCols; ++col_index)
             scanf("%i", m->values[row_index] + col_index);
@@ -55,6 +54,7 @@ void inputMatrices(matrix *ms, int nMatrices){
 }
 
 void outputMatrix(matrix m){
+    printf("%d %d\n", m.nRows, m.nCols);
     for (int row_index = 0; row_index < m.nRows; ++row_index) {
         outputArray(m.values[row_index], m.nCols, ", ");
     }
@@ -65,10 +65,129 @@ void outputMatrices(matrix *ms, int nMatrices){
         outputMatrix(ms[i]);
 }
 
+void inputMatrixF(matrix *m, FILE* f){
+    for (int row_index = 0; row_index < m->nRows; ++row_index)
+        for (int col_index = 0; col_index < m->nCols; ++col_index)
+            fscanf(f, "%i", m->values[row_index] + col_index);
+}
+
+void inputMatrixFBin(matrix *m, FILE* f){
+    for (int row_index = 0; row_index < m->nRows; ++row_index)
+        fread(m->values[row_index], sizeof(int), m->nCols, f);
+}
+
+void inputMatricesF(matrix *ms, int nMatrices, FILE* f){
+    for (int i = 0; i < nMatrices; ++i)
+        inputMatrixF(ms + i, f);
+}
+
+matrix createMatrixF(FILE* f){
+    int rows_amount, columns_amount;
+    fscanf(f, "%i%i", &rows_amount, &columns_amount);
+
+    matrix m = getMemMatrix(rows_amount, columns_amount);
+    inputMatrixF(&m, f);
+    return m;
+}
+
+matrix createMatrixFBin(FILE* f){
+    int rows_amount, columns_amount;
+    fread(&rows_amount, sizeof (int), 1, f);
+    fread(&columns_amount, sizeof (int), 1, f);
+
+    matrix m = getMemMatrix(rows_amount, columns_amount);
+    inputMatrixFBin(&m, f);
+    return m;
+}
+
+matrix createMatrixSquareFBin(FILE* f){
+    int n;
+    fread(&n, sizeof (int), 1, f);
+
+    matrix m = getMemMatrix(n, n);
+    inputMatrixFBin(&m, f);
+    return m;
+}
+
+matrix createMatrixSquareF(FILE* f){
+    int n;
+    fscanf(f, "%i", &n);
+
+    matrix m = getMemMatrix(n, n);
+    inputMatrixF(&m, f);
+    return m;
+}
+
+matrix* createArrayOfMatricesF(FILE* f, int *n){
+    fscanf(f, "%d", n);
+
+    matrix *ms = malloc(*n * sizeof (matrix));
+    for (int i = 0; i < *n; ++i) {
+        ms[i] = createMatrixF(f);
+    }
+
+    return ms;
+}
+
+matrix* createArrayOfMatricesSquareF(FILE* f, int *n){
+    fscanf(f, "%d", n);
+
+    matrix *ms = malloc(*n * sizeof (matrix));
+    for (int i = 0; i < *n; ++i) {
+        ms[i] = createMatrixSquareF(f);
+    }
+
+    return ms;
+}
+
+matrix* createArrayOfMatricesSquareFBin(FILE* f, int *n){
+    fread(n, sizeof (int), 1, f);
+
+    matrix *ms = malloc(*n * sizeof (matrix));
+    for (int i = 0; i < *n; ++i) {
+        ms[i] = createMatrixSquareFBin(f);
+    }
+
+    return ms;
+}
+
+void outputMatrixF(matrix m, FILE* f){
+    fprintf(f, "%d %d\n", m.nRows, m.nCols);
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        outputArrayF(m.values[row_index], m.nCols, " ", f);
+    }
+}
+
+void outputMatrixSquareF(matrix m, FILE* f){
+    fprintf(f, "%d\n", m.nRows);
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        outputArrayF(m.values[row_index], m.nCols, " ", f);
+    }
+}
+
+void outputMatricesSquareF(matrix *ms, int nMatrices, FILE* f){
+    fprintf(f, "%d\n", nMatrices);
+    for (int i = 0; i < nMatrices; ++i)
+        outputMatrixSquareF(ms[i], f);
+}
+
+void outputMatrixSquareFBin(matrix m, FILE* f){
+    fwrite(&m.nRows, sizeof (int), 1, f);
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        fwrite(m.values[row_index], sizeof (int), m.nCols, f);
+    }
+}
+
+void outputMatricesSquareFBin(matrix *ms, int nMatrices, FILE* f){
+    fwrite(&nMatrices, sizeof (int), 1, f);
+    for (int i = 0; i < nMatrices; ++i)
+        outputMatrixSquareFBin(ms[i], f);
+}
+
 void swapRows(matrix m, int i1, int i2){
     int *t = m.values[i1];
-    m.values[i2] = m.values[i1];
-    m.values[i1] = t;
+    m.values[i1] = m.values[i2];
+    m.values[i2] = t;
 }
 
 void swapColumns(matrix m, int j1, int j2){

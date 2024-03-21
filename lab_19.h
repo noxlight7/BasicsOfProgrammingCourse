@@ -1,0 +1,8 @@
+//
+// Created by curo on 21.03.2024.
+//
+
+#ifndef BASICSOFPROGRAMMINGCOURSE_LAB_19_H
+#define BASICSOFPROGRAMMINGCOURSE_LAB_19_H
+int test_lab_19_all();
+#endif //BASICSOFPROGRAMMINGCOURSE_LAB_19_H
