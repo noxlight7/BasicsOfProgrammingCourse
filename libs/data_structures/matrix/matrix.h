@@ -56,4 +56,8 @@ position getMaxValuePos(matrix m);
 matrix createMatrixFromArray(const int *a, int nRows, int nCols);
 int countZeroRows(matrix m);
 
+
+void sortRowsByMinElement(matrix m);
+void sortRowsByMaxElement(matrix m);
+
 #endif //BASICSOFPROGRAMMINGCOURSE_MATRIX_H

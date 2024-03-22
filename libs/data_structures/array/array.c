@@ -524,3 +524,27 @@ int getSum(at *a, int n){
 
     return result;
 }
+
+int maxInt(int a, int b){
+    return a >= b ? a : b;
+}
+
+int minInt(int a, int b){
+    return a <= b ? a : b;
+}
+
+int getMax(int *a, int n){
+    int max = *a;
+    for (int i = 1; i < n; ++i) {
+        max = maxInt(max, a[i]);
+    }
+    return max;
+}
+
+int getMin(int *a, int n){
+    int min = *a;
+    for (int i = 1; i < n; ++i) {
+        min = minInt(min, a[i]);
+    }
+    return min;
+}

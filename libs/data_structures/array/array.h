@@ -142,5 +142,7 @@ void shellSortLL(long long a[], long long n);
 bool isZero(const at a[], const size_t size);
 
 int getSum(int *a, int n);
+int getMax(int *a, int n);
+int getMin(int *a, int n);
 
 # endif

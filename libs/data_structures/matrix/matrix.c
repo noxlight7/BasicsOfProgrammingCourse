@@ -358,3 +358,11 @@ matrix *createArrayOfMatrixFromArray(const int *values,
                 ms[k].values[i][j] = values[l++];
     return ms;
 }
+
+void sortRowsByMinElement(matrix m){
+    insertionSortRowsMatrixByRowCriteria(m, getMin);
+}
+
+void sortRowsByMaxElement(matrix m){
+    insertionSortRowsMatrixByRowCriteria(m, getMax);
+}
