@@ -1,9 +1,9 @@
 //
 // Created by curo on 21.03.2024.
 //
-#include "lab_19.h"
+#include "labs_tests.h"
 
 int main(){
-    test_lab_19_all();
+    test_lab_16_all();
     return 0;
 }

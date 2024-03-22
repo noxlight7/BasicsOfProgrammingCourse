@@ -1,7 +1,3 @@
-//
-// Created by curo on 16.02.2024.
-//
-
 #include <ctype.h>
 #include <string.h>
 #include <math.h>
