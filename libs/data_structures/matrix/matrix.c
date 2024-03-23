@@ -408,3 +408,11 @@ matrix mulMatrices(matrix m1, matrix m2){
 
     return res;
 }
+
+bool isMutuallyInverseMatrices(matrix m1, matrix m2){
+    matrix res = mulMatrices(m1, m2);
+    bool ret = isEMatrix(&res);
+    freeMemMatrix(&res);
+
+    return ret;
+}

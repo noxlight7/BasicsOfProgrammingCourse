@@ -25,6 +25,29 @@ void transposeIfMatrixHasNotEqualSumOfRows(matrix *m){
 
 }
 
+void test_isMutuallyInverseMatrices() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 5, 7,
+                            6, 3, 4,
+                            5, -2, -3
+                    },
+            3, 3
+    );
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, -1, 1,
+                            -38, 41, -34,
+                            27, -29, 24
+                    },
+            3, 3
+    );
+    assert(isMutuallyInverseMatrices(m1, m2));
+}
+
 void test_transposeIfMatrixHasNotEqualSumOfRows(){
     matrix m1 = createMatrixFromArray(
             (int[])
@@ -256,4 +279,5 @@ void test_lab_16_all(){
     test_sortColsByMinElement();
     test_getSquareOfMatrixIfSymmetric();
     test_transposeIfMatrixHasNotEqualSumOfRows();
+    test_isMutuallyInverseMatrices();
 }

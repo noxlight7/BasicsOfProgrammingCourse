@@ -65,5 +65,6 @@ void sortRowsByMinElement(matrix m);
 void sortRowsByMaxElement(matrix m);
 void sortColsByMinElement(matrix m);
 void sortColsByMaxElement(matrix m);
+bool isMutuallyInverseMatrices(matrix m1, matrix m2);
 
 #endif //BASICSOFPROGRAMMINGCOURSE_MATRIX_H
