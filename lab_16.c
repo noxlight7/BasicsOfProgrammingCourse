@@ -8,7 +8,60 @@ void swapRowsWithMinMax(matrix m){
     swapRows(m, getMaxValuePos(m).rowIndex, getMinValuePos(m).rowIndex);
 }
 
+void getSquareOfMatrixIfSymmetric(matrix *m){
+    if (isSymmetricMatrix(m)){
+        matrix t = mulMatrices(*m, *m);
+        freeMemMatrix(m);
+        *m = t;
+    }
+}
 
+void test_getSquareOfMatrixIfSymmetric(){
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 3, 9,
+                            3, 5, 6,
+                            9, 6, 6
+                    },
+            3, 3
+    );
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            94, 75, 90,
+                            75, 70, 93,
+                            90, 93, 153,
+                    },
+            3, 3
+    );
+
+    matrix m3 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 3, 9,
+                            3, 5, 6,
+                            1, 6, 6
+                    },
+            3, 3
+    );
+
+    matrix m4 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 3, 9,
+                            3, 5, 6,
+                            1, 6, 6
+                    },
+            3, 3
+    );
+
+    getSquareOfMatrixIfSymmetric(&m1);
+    getSquareOfMatrixIfSymmetric(&m3);
+    assert(areTwoMatricesEqual(&m1, &m2));
+    assert(areTwoMatricesEqual(&m3, &m4));
+}
 
 void test_swapRowsWithMinMax(){
     matrix m1 = createMatrixFromArray(
@@ -143,4 +196,5 @@ void test_lab_16_all(){
     test_sortRowsByMaxElement();
     test_sortColsByMaxElement();
     test_sortColsByMinElement();
+    test_getSquareOfMatrixIfSymmetric();
 }

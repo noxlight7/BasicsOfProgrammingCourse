@@ -374,3 +374,25 @@ void sortColsByMinElement(matrix m){
 void sortColsByMaxElement(matrix m){
     selectionSortColsMatrixByColCriteria(m, getMax);
 }
+
+matrix mulMatrices(matrix m1, matrix m2){
+    if (m1.nCols != m2.nRows){
+        fprintf(
+                stderr,
+                "matrices multiplication impossible: m1.nCols != m2.nRows");
+        exit(1);
+    }
+
+    matrix res = getMemMatrix(m1.nRows, m2.nCols);
+    for (int row_index = 0; row_index < res.nRows; ++row_index) {
+        for (int col_index = 0; col_index < res.nCols; ++col_index) {
+            int s = 0;
+            for (int i = 0; i < m1.nRows; ++i) {
+                s += m1.values[row_index][i] * m2.values[i][col_index];
+            }
+            res.values[row_index][col_index] = s;
+        }
+    }
+
+    return res;
+}

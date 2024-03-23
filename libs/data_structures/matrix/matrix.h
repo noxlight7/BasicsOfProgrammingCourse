@@ -55,7 +55,7 @@ position getMinValuePos(matrix m);
 position getMaxValuePos(matrix m);
 matrix createMatrixFromArray(const int *a, int nRows, int nCols);
 int countZeroRows(matrix m);
-
+matrix mulMatrices(matrix m1, matrix m2);
 
 void sortRowsByMinElement(matrix m);
 void sortRowsByMaxElement(matrix m);
