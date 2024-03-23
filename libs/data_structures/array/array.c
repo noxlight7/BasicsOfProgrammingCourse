@@ -548,3 +548,22 @@ int getMin(int *a, int n){
     }
     return min;
 }
+
+long long getSumL(int *a, int n){
+    long long sum = 0;
+    for (int i = 0; i < n; ++i) {
+        sum += a[i];
+    }
+
+    return sum;
+}
+
+bool isUnique(long long *a, int n){
+    for (int i = 0; i < n; ++i)
+        for (int j = i + 1; j < n; j++)
+            if (a[i] == a[j])
+                return false;
+
+    return true;
+}
+

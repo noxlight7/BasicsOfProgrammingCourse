@@ -195,12 +195,24 @@ void swapColumns(matrix m, int j1, int j2){
         swap(&m.values[row_index][j1], &m.values[row_index][j2]);
 }
 
-void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int*, int)){
-    int* criteria_array = (int *) malloc(m.nRows * sizeof(int));
-
+void fillRowCriteriaArray(matrix m, int* criteria_array, int (*criteria)(int*, int)){
     for (int row_index = 0; row_index < m.nRows; ++row_index) {
         criteria_array[row_index] = criteria(m.values[row_index], m.nCols);
     }
+}
+
+void fillRowCriteriaArrayL(matrix m,
+                           long long* criteria_array,
+                           long long (*criteria)(int*, int)){
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        criteria_array[row_index] = criteria(m.values[row_index], m.nCols);
+    }
+}
+
+void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int*, int)){
+    int* criteria_array = (int *) malloc(m.nRows * sizeof(int));
+
+    fillRowCriteriaArray(m, criteria_array, criteria);
 
     shellSortIntCriteriaArray(criteria_array, m.values, sizeof (int*), m.nRows);
 

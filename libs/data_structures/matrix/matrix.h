@@ -56,6 +56,10 @@ position getMaxValuePos(matrix m);
 matrix createMatrixFromArray(const int *a, int nRows, int nCols);
 int countZeroRows(matrix m);
 matrix mulMatrices(matrix m1, matrix m2);
+void fillRowCriteriaArray(matrix m, int* criteria_array, int (*criteria)(int*, int));
+void fillRowCriteriaArrayL(matrix m,
+                           long long* criteria_array,
+                           long long (*criteria)(int*, int));
 
 void sortRowsByMinElement(matrix m);
 void sortRowsByMaxElement(matrix m);

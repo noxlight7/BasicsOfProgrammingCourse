@@ -145,4 +145,7 @@ int getSum(int *a, int n);
 int getMax(int *a, int n);
 int getMin(int *a, int n);
 
+long long getSumL(int *a, int n);
+bool isUnique(long long *a, int n);
+
 # endif

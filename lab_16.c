@@ -2,6 +2,7 @@
 // Created by curo on 22.03.2024.
 //
 #include "matrix/matrix.h"
+#include "array/array.h"
 #include <assert.h>
 
 void swapRowsWithMinMax(matrix m){
@@ -14,6 +15,63 @@ void getSquareOfMatrixIfSymmetric(matrix *m){
         freeMemMatrix(m);
         *m = t;
     }
+}
+
+void transposeIfMatrixHasNotEqualSumOfRows(matrix *m){
+    long long row_sums[m->nRows];
+    fillRowCriteriaArrayL(*m, row_sums, getSumL);
+    if (isUnique(row_sums, m->nRows))
+        transposeMatrix(m);
+
+}
+
+void test_transposeIfMatrixHasNotEqualSumOfRows(){
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 3, 9, 5,
+                            3, 5, 6, 3,
+                            9, 6, 6, 5
+                    },
+            3, 4
+    );
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 3, 9,
+                            3, 5, 6,
+                            9, 6, 6,
+                            5, 3, 5
+                    },
+            4, 3
+    );
+
+    transposeIfMatrixHasNotEqualSumOfRows(&m1);
+    assert(areTwoMatricesEqual(&m1, &m2));
+
+    matrix m3 = createMatrixFromArray(
+            (int[])
+                    {
+                            8, 3, 1,
+                            3, 5, 4,
+                            2, 4, 6
+                    },
+            3, 3
+    );
+
+    matrix m4 = createMatrixFromArray(
+            (int[])
+                    {
+                            8, 3, 1,
+                            3, 5, 4,
+                            2, 4, 6
+                    },
+            3, 3
+    );
+
+    transposeIfMatrixHasNotEqualSumOfRows(&m3);
+    assert(areTwoMatricesEqual(&m3, &m4));
 }
 
 void test_getSquareOfMatrixIfSymmetric(){
@@ -197,4 +255,5 @@ void test_lab_16_all(){
     test_sortColsByMaxElement();
     test_sortColsByMinElement();
     test_getSquareOfMatrixIfSymmetric();
+    test_transposeIfMatrixHasNotEqualSumOfRows();
 }
