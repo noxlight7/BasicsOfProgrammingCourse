@@ -86,8 +86,61 @@ void test_sortRowsByMaxElement(){
     assert(areTwoMatricesEqual(&m1, &m2));
 }
 
+void test_sortColsByMinElement() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            3, 4, 9,
+                            5, 2, 6,
+                            3, 1, 10
+                    },
+            3, 3
+    );
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            4, 3, 9,
+                            2, 5, 6,
+                            1, 3, 10,
+
+                    },
+            3, 3
+    );
+
+    sortColsByMinElement(m1);
+    assert(areTwoMatricesEqual(&m1, &m2));
+}
+
+void test_sortColsByMaxElement(){
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            9, 3, 2,
+                            6, 5, 4,
+                            10, 3, 1
+                    },
+            3, 3
+    );
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 3, 9,
+                            4, 5, 6,
+                            1, 3, 10
+                    },
+            3, 3
+    );
+
+    sortColsByMaxElement(m1);
+    assert(areTwoMatricesEqual(&m1, &m2));
+}
+
 void test_lab_16_all(){
     test_swapRowsWithMinMax();
     test_sortRowsByMinElement();
     test_sortRowsByMaxElement();
+    test_sortColsByMaxElement();
+    test_sortColsByMinElement();
 }

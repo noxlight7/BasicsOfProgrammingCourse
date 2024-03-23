@@ -59,5 +59,7 @@ int countZeroRows(matrix m);
 
 void sortRowsByMinElement(matrix m);
 void sortRowsByMaxElement(matrix m);
+void sortColsByMinElement(matrix m);
+void sortColsByMaxElement(matrix m);
 
 #endif //BASICSOFPROGRAMMINGCOURSE_MATRIX_H

@@ -366,3 +366,11 @@ void sortRowsByMinElement(matrix m){
 void sortRowsByMaxElement(matrix m){
     insertionSortRowsMatrixByRowCriteria(m, getMax);
 }
+
+void sortColsByMinElement(matrix m){
+    selectionSortColsMatrixByColCriteria(m, getMin);
+}
+
+void sortColsByMaxElement(matrix m){
+    selectionSortColsMatrixByColCriteria(m, getMax);
+}
