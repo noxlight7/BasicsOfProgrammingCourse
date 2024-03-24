@@ -4,6 +4,27 @@
 #include "matrix/matrix.h"
 #include "array/array.h"
 #include <assert.h>
+#include <limits.h>
+
+long long findSumOfMaxesOfPseudoDiagonal(matrix m){
+
+    int diag_amount = m.nRows + m.nCols - 1;
+    int max_diag[diag_amount];
+    for (int i = 0; i < diag_amount; ++i) {
+        max_diag[i] = INT_MIN;
+    }
+
+    int shift = m.nCols - 1;
+
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        for (int column_index = 0; column_index < m.nCols; ++column_index) {
+            int index = row_index - column_index + shift;
+            max_diag[index] = max2at(max_diag[index], m.values[row_index][column_index]);
+        }
+    }
+
+    return getSumL(max_diag, diag_amount) - max_diag[shift];
+}
 
 void swapRowsWithMinMax(matrix m){
     swapRows(m, getMaxValuePos(m).rowIndex, getMinValuePos(m).rowIndex);
@@ -23,6 +44,36 @@ void transposeIfMatrixHasNotEqualSumOfRows(matrix *m){
     if (isUnique(row_sums, m->nRows))
         transposeMatrix(m);
 
+}
+
+void test_findSumOfMaxesOfPseudoDiagonal() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 5, 7,
+                            6, 3, 4,
+                            5, -2, -3,
+                            -2, -2, -3,
+                            0, -1, -3,
+                    },
+            5, 3
+    );
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            3, 2, 5, 4,
+                            1, 3, 6, 3,
+                            3, 2, 1, 2
+                    },
+            3, 4
+    );
+
+    assert(findSumOfMaxesOfPseudoDiagonal(m1) == 22);
+    assert(findSumOfMaxesOfPseudoDiagonal(m2) == 20);
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
 }
 
 void test_isMutuallyInverseMatrices() {
@@ -95,6 +146,10 @@ void test_transposeIfMatrixHasNotEqualSumOfRows(){
 
     transposeIfMatrixHasNotEqualSumOfRows(&m3);
     assert(areTwoMatricesEqual(&m3, &m4));
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+    freeMemMatrix(&m3);
+    freeMemMatrix(&m4);
 }
 
 void test_getSquareOfMatrixIfSymmetric(){
@@ -280,4 +335,5 @@ void test_lab_16_all(){
     test_getSquareOfMatrixIfSymmetric();
     test_transposeIfMatrixHasNotEqualSumOfRows();
     test_isMutuallyInverseMatrices();
+    test_findSumOfMaxesOfPseudoDiagonal();
 }
