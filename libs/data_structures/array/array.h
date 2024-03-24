@@ -98,6 +98,10 @@ it max2it(it x, it y);
 
 at max2at(at x, at y);
 
+int maxInt(int a, int b);
+
+int minInt(int a, int b);
+
 it getMaxEvenChainLen(const at* a, const size_t n);
 
 void delNegative(at* a, size_t *n);

@@ -46,6 +46,50 @@ void transposeIfMatrixHasNotEqualSumOfRows(matrix *m){
 
 }
 
+int getMinInArea(matrix m){
+    position max_pos = getMaxValuePos(m);
+
+    int min = m.values[max_pos.rowIndex][max_pos.colIndex];
+    for (int row_index = 0; row_index < max_pos.rowIndex; ++row_index) {
+        int end_index = minInt(max_pos.colIndex - row_index + max_pos.rowIndex + 1, m.nCols);
+        for (int col_index = maxInt(max_pos.colIndex + row_index - max_pos.rowIndex, 0);
+                 col_index < end_index; ++col_index) {
+            min = minInt(min, m.values[row_index][col_index]);
+        }
+    }
+
+    return min;
+}
+
+void test_getMinInArea() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 5, 7,
+                            6, 3, 4,
+                            5, 1, 2,
+                            -2, 9, -3,
+                            0, -1, -3,
+                    },
+            5, 3
+    );
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 5, 7, 5, 8,
+                            6, 3, 4, 6, 10,
+                            5, 1, 2, 3, 2
+                    },
+            3, 5
+    );
+
+    assert(getMinInArea(m1) == 1);
+    assert(getMinInArea(m2) == 5);
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
 void test_findSumOfMaxesOfPseudoDiagonal() {
     matrix m1 = createMatrixFromArray(
             (int[])
@@ -336,4 +380,5 @@ void test_lab_16_all(){
     test_transposeIfMatrixHasNotEqualSumOfRows();
     test_isMutuallyInverseMatrices();
     test_findSumOfMaxesOfPseudoDiagonal();
+    test_getMinInArea();
 }

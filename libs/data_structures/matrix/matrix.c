@@ -307,7 +307,7 @@ void transposeMatrix(matrix *m){
 }
 
 position getMinValuePos(matrix m){
-    position min_pos = {(int) findMinUnsortedIndex(m.values[0], m.nCols), 0};
+    position min_pos = {0, (int) findMinUnsortedIndex(m.values[0], m.nCols)};
     int min_el = m.values[min_pos.rowIndex][min_pos.colIndex];
 
     for(int row_index = 0; row_index < m.nRows; row_index++) {
@@ -325,7 +325,7 @@ position getMinValuePos(matrix m){
 }
 
 position getMaxValuePos(matrix m){
-    position max_pos = {(int) findMaxUnsortedIndex(m.values[0], m.nCols), 0};
+    position max_pos = {0, (int) findMaxUnsortedIndex(m.values[0], m.nCols)};
     int max_el = m.values[max_pos.rowIndex][max_pos.colIndex];
 
     for(int row_index = 0; row_index < m.nRows; row_index++) {
