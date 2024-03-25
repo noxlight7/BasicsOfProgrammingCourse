@@ -44,6 +44,7 @@ void outputMatricesSquareFBin(matrix *ms, int nMatrices, FILE* f);
 void swapRows(matrix m, int i1, int i2);
 void swapColumns(matrix m, int j1, int j2);
 void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int*, int));
+void insertionSortRowsMatrixByRowCriteriaF(matrix m, float (*criteria)(int *, int));
 void selectionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int*, int));
 bool isSquareMatrix(matrix *m);
 bool areTwoMatricesEqual(matrix *m1, matrix *m2);

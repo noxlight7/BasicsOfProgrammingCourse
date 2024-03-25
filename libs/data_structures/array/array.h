@@ -141,6 +141,8 @@ void copy(at *dst, const at *src, size_t size);
 void shellSortInt(int a[], int n);
 void shellSortIntCriteriaArray(int criteria[], void* bind_array,
                                int bind_array_element_size, int n);
+void shellSortIntCriteriaArrayF(float *criteria, void* bind_array,
+                                int bind_array_element_size, int n);
 void shellSortLL(long long a[], long long n);
 
 bool isZero(const at a[], const size_t size);

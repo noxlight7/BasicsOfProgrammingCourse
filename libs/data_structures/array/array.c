@@ -55,6 +55,34 @@ void shellSortIntCriteriaArray(int *criteria, void* bind_array,
     }
 }
 
+// реализация сортировки Шелла
+void shellSortIntCriteriaArrayF(float *criteria, void* bind_array,
+                               int bind_array_element_size, int n)
+{
+    char temp_bind[bind_array_element_size];
+
+    for (int gap = n / 2; gap > 0; gap /= 2)
+    {
+        for (int i = gap; i < n; i += 1)
+        {
+            //сортировка подсписков, созданных с помощью gap
+            float temp = criteria[i];
+            memcpy(temp_bind, bind_array + i * bind_array_element_size, bind_array_element_size);
+
+            int j;
+            for (j = i; j >= gap && criteria[j - gap] > temp; j -= gap) {
+                criteria[j] = criteria[j - gap];
+                memcpy(bind_array + j * bind_array_element_size,
+                       bind_array + (j - gap) * bind_array_element_size,
+                       bind_array_element_size);
+            }
+
+            criteria[j] = temp;
+            memcpy(bind_array + j * bind_array_element_size, temp_bind, bind_array_element_size);
+        }
+    }
+}
+
 void shellSortLL(long long a[], long long n)
 {
     for (long long gap = n / 2; gap > 0; gap /= 2)

@@ -224,6 +224,22 @@ void columnToArray(matrix m, int column_index, int* dst){
         dst[row_index] = m.values[row_index][column_index];
 }
 
+void fillRowCriteriaArrayF(matrix m, float* criteria_array, float (*criteria)(int*, int)){
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        criteria_array[row_index] = criteria(m.values[row_index], m.nCols);
+    }
+}
+
+void insertionSortRowsMatrixByRowCriteriaF(matrix m, float (*criteria)(int *, int)){
+    float * criteria_array = (float *) malloc(m.nRows * sizeof(float));
+
+    fillRowCriteriaArrayF(m, criteria_array, criteria);
+
+    shellSortIntCriteriaArrayF(criteria_array, m.values, sizeof (float*), m.nRows);
+
+    free(criteria_array);
+}
+
 void selectionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int*, int)){
     int* criteria_array = (int *) malloc(m.nCols * sizeof(int));
     int *temp_col = (int *) malloc(m.nRows * sizeof(int));

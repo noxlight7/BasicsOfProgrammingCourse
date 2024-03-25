@@ -5,6 +5,7 @@
 #include "array/array.h"
 #include <assert.h>
 #include <limits.h>
+#include <math.h>
 
 long long findSumOfMaxesOfPseudoDiagonal(matrix m){
 
@@ -59,6 +60,49 @@ int getMinInArea(matrix m){
     }
 
     return min;
+}
+
+float getDistance(int *a, int n){
+    float dist = 0;
+
+    for (int i = 0; i < n; ++i) {
+        dist += (float) a[i] * (float) a[i];
+    }
+
+    return sqrtf(dist);
+}
+
+void sortByDistances(matrix m){
+    insertionSortRowsMatrixByRowCriteriaF(m, getDistance);
+}
+
+void test_sortByDistances() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            -2, -2, -4,
+                            2, -2, 1,
+                            0, 3, -4,
+                            100, 9, -3,
+                    },
+            4, 3
+    );
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, -2, 1,
+                            -2, -2, -4,
+                            0, 3, -4,
+                            100, 9, -3,
+                    },
+            4, 3
+    );
+
+    sortByDistances(m1);
+    assert(areTwoMatricesEqual(&m1, &m2));
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
 }
 
 void test_getMinInArea() {
@@ -381,4 +425,5 @@ void test_lab_16_all(){
     test_isMutuallyInverseMatrices();
     test_findSumOfMaxesOfPseudoDiagonal();
     test_getMinInArea();
+    test_sortByDistances();
 }
