@@ -595,3 +595,22 @@ bool isUnique(long long *a, int n){
     return true;
 }
 
+int countUnique(long long *a, int n){
+    int counter = 0;
+    for (int i = 0; i < n; ++i) {
+        int j;
+        for (j = i + 1; j < n; j++)
+            if (a[i] == a[j])
+                break;
+
+        counter += (j == n);
+    }
+
+    return counter;
+}
+
+int countNUnique(long long *a, int n){
+    return n - countUnique(a, n);
+}
+
+

@@ -153,5 +153,7 @@ int getMin(int *a, int n);
 
 long long getSumL(int *a, int n);
 bool isUnique(long long *a, int n);
+int countNUnique(long long *a, int n);
+int countUnique(long long *a, int n);
 
 # endif
