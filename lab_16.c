@@ -145,6 +145,200 @@ int getNSpecialElement(matrix m) {
     return counter;
 }
 
+position getLeftMin(matrix m){
+    position min_pos = {0, 0};
+    int min_el = m.values[0][0];
+
+    for(int col_index = 0; col_index < m.nCols; col_index++) {
+        for (int row_index = 0; row_index < m.nRows; ++row_index) {
+            if (min_el > m.values[row_index][col_index]){
+                min_pos.rowIndex = row_index;
+                min_pos.colIndex = col_index;
+                min_el = m.values[row_index][col_index];
+            }
+        }
+    }
+
+    return min_pos;
+}
+
+void swapPenultimateRow(matrix m, int n){
+    position min_pos = getLeftMin(m);
+    int el = m.values[n][min_pos.colIndex];
+    for (int i = 0; i < m.nCols; ++i)
+        if (i == n)
+            m.values[n][i] = el;
+        else
+            m.values[n][i] = m.values[i][min_pos.colIndex];
+}
+
+bool hasAllNonDescendingRows(matrix m){
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        if(!isSorted(m.values[row_index], m.nCols))
+            return false;
+    }
+
+    return true;
+}
+
+int countNonDescendingRowsMatrices(matrix *ms, int nMatrix){
+    int counter = 0;
+    for (int i = 0; i < nMatrix; ++i) {
+        counter += hasAllNonDescendingRows(ms[i]);
+    }
+
+    return counter;
+}
+
+void test_countNonDescendingRowsMatrices() {
+    matrix m01 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 2, 3,
+                            4, 5, 6,
+                            1, 8, 1
+                    },
+            3, 3
+    );
+
+    matrix m02 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 2, 3,
+                            1, 4, 7,
+                            10, 8, 10
+                    },
+            3, 3
+    );
+
+    matrix m03 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 2, 3,
+                            -1, -1, -1,
+                            1, 2, 10
+                    },
+            3, 3
+    );
+
+    matrix m04 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 2, 3,
+                            3, 4, 3,
+                            1, 2, 10
+                    },
+            3, 3
+    );
+
+    matrix m11 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 2, 3,
+                            4, 5, 6,
+                            7, 8, 1
+                    },
+            3, 3
+    );
+
+    matrix m12 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 2, 3,
+                            1, 4, 7,
+                            1, 8, 10
+                    },
+            3, 3
+    );
+
+    matrix m13 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 2, 3,
+                            0, 2, 7,
+                            1, 2, 10
+                    },
+            3, 3
+    );
+
+    matrix m14 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 2, 3,
+                            3, 2, 7,
+                            1, 2, 10
+                    },
+            3, 3
+    );
+
+    matrix ms2[] = {m11, m12, m13, m14};
+    matrix ms1[] = {m01, m02, m03, m04};
+
+    assert(countNonDescendingRowsMatrices( ms1, 4) == 1);
+    assert(countNonDescendingRowsMatrices( ms2, 4) == 2);
+    freeMemMatrix(&m11);
+    freeMemMatrix(&m12);
+    freeMemMatrix(&m13);
+    freeMemMatrix(&m14);
+    freeMemMatrix(&m01);
+    freeMemMatrix(&m02);
+    freeMemMatrix(&m03);
+    freeMemMatrix(&m04);
+}
+
+void test_swapPenultimateRow() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 2, 3,
+                            4, 5, 6,
+                            7, 8, 1
+                    },
+            3, 3
+    );
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 2, 3,
+                            1, 4, 7,
+                            7, 8, 1
+                    },
+            3, 3
+    );
+
+    swapPenultimateRow(m1, 1);
+    assert(areTwoMatricesEqual(&m1, &m2));
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+    matrix m3 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, -1, 7, 4,
+                            -3, 3, 4, 5,
+                            5, 1, 2, 6,
+                            -2, 9, -4, 7,
+                    },
+            4, 4
+    );
+
+    matrix m4 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, -1, 7, 4,
+                            -3, 3, 4, 5,
+                            7, 4, 2, -4,
+                            -2, 9, -4, 7,
+                    },
+            4, 4
+    );
+    swapPenultimateRow(m3, 2);
+
+    assert(areTwoMatricesEqual(&m3, &m4));
+    freeMemMatrix(&m3);
+    freeMemMatrix(&m4);
+}
+
 void test_getNSpecialElement() {
     matrix m1 = createMatrixFromArray(
             (int[])
@@ -531,4 +725,6 @@ void test_lab_16_all(){
     test_sortByDistances();
     test_countEqClassesByRowsSum();
     test_getNSpecialElement();
+    test_swapPenultimateRow();
+    test_countNonDescendingRowsMatrices();
 }
