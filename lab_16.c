@@ -130,6 +130,51 @@ int countEqClassesByRowsSum(matrix m){
     return countIntElementsOrdered(row_sums, m.nRows);
 }
 
+int getNSpecialElement(matrix m) {
+    int counter = 0;
+    for (int col_index = 0; col_index < m.nCols; ++col_index) {
+        int max = m.values[0][col_index];
+        int s = max;
+        for (int row_index = 1; row_index < m.nRows; ++row_index) {
+            s += m.values[row_index][col_index];
+            max = maxInt(max, m.values[row_index][col_index]);
+        }
+        counter += (max << 1) > s;
+    }
+
+    return counter;
+}
+
+void test_getNSpecialElement() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, -1, 7, 4,
+                            -3, 3, 4, 5,
+                            5, 1, 2, 6,
+                            -2, 9, -3, 7,
+                            0, -1, -3, 8,
+                    },
+            5, 4
+    );
+
+    assert(getNSpecialElement(m1) == 3);
+    freeMemMatrix(&m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            3, 5, 5, 4,
+                            2, 3, 6, 7,
+                            12, 2, 1, 2
+
+                    },
+            3, 4
+    );
+    assert(getNSpecialElement(m2) == 2);
+    freeMemMatrix(&m2);
+}
+
 void test_countEqClassesByRowsSum() {
     matrix m1 = createMatrixFromArray(
             (int[])
@@ -485,4 +530,5 @@ void test_lab_16_all(){
     test_getMinInArea();
     test_sortByDistances();
     test_countEqClassesByRowsSum();
+    test_getNSpecialElement();
 }
