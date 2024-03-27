@@ -190,6 +190,116 @@ int countNonDescendingRowsMatrices(matrix *ms, int nMatrix){
     return counter;
 }
 
+void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix){
+    int max = 0;
+    int max_index = 0;
+    for (int i = 0; i < nMatrix; ++i) {
+        int current = countZeroRows(ms[i]);
+        if (current > max) {
+            max_index = i;
+            max = current;
+        }
+    }
+
+    outputMatrix(ms[max_index]);
+}
+
+void test_printMatrixWithMaxZeroRows() {
+    matrix m01 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, 2, 3,
+                            4, 5, 6,
+                            1, 8, 1
+                    },
+            3, 3
+    );
+
+    matrix m02 = createMatrixFromArray(
+            (int[])
+                    {
+                            0, 0, 0,
+                            1, 4, 7,
+                            10, 8, 10
+                    },
+            3, 3
+    );
+
+    matrix m03 = createMatrixFromArray(
+            (int[])
+                    {
+                            0, 0, 0,
+                            0, 0, 0,
+                            1, 2, 10
+                    },
+            3, 3
+    );
+
+    matrix m04 = createMatrixFromArray(
+            (int[])
+                    {
+                            0, 0, 0,
+                            0, 0, 3,
+                            0, 0, 10
+                    },
+            3, 3
+    );
+
+    matrix m11 = createMatrixFromArray(
+            (int[])
+                    {
+                            0, 0, 0,
+                            4, 5, 6,
+                            7, 8, 1
+                    },
+            3, 3
+    );
+
+    matrix m12 = createMatrixFromArray(
+            (int[])
+                    {
+                            0, 0, 0,
+                            0, 4, 0,
+                            0, 8, 0
+                    },
+            3, 3
+    );
+
+    matrix m13 = createMatrixFromArray(
+            (int[])
+                    {
+                            0, 2, 3,
+                            0, 2, 7,
+                            1, 2, 10
+                    },
+            3, 3
+    );
+
+    matrix m14 = createMatrixFromArray(
+            (int[])
+                    {
+                            0, 0, 0,
+                            0, 0, 0,
+                            0, 0, 0
+                    },
+            3, 3
+    );
+
+    matrix ms1[] = {m01, m02, m03, m04};
+    matrix ms2[] = {m11, m12, m13, m14};
+
+    printMatrixWithMaxZeroRows(ms1, 4);
+    printMatrixWithMaxZeroRows(ms2, 4);
+    freeMemMatrix(&m11);
+    freeMemMatrix(&m12);
+    freeMemMatrix(&m13);
+    freeMemMatrix(&m14);
+    freeMemMatrix(&m01);
+    freeMemMatrix(&m02);
+    freeMemMatrix(&m03);
+    freeMemMatrix(&m04);
+}
+
 void test_countNonDescendingRowsMatrices() {
     matrix m01 = createMatrixFromArray(
             (int[])
@@ -727,4 +837,5 @@ void test_lab_16_all(){
     test_getNSpecialElement();
     test_swapPenultimateRow();
     test_countNonDescendingRowsMatrices();
+    test_printMatrixWithMaxZeroRows();
 }
