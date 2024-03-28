@@ -234,6 +234,69 @@ void printMatrixWithMinNorm(matrix *ms, int n){
     }
 }
 
+int countSpec(int *a, int n){
+    int counter = 0;
+    for (int i = 0; i < n; ++i) {
+        bool sp = true;
+        for (int j = 0; j < i; ++j) {
+            if (a[j] >= a[i]){
+                sp = false;
+                break;
+            }
+        }
+
+        if (!sp)
+            continue;
+
+        for (int j = i + 1; j < n; ++j) {
+            if (a[j] <= a[i]){
+                sp = false;
+                break;
+            }
+        }
+
+        counter += sp;
+    }
+
+    return counter;
+}
+
+int getNSpecialElement2(matrix m){
+    int counter = 0;
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        counter += countSpec(m.values[row_index], m.nCols);
+    }
+
+    return counter;
+}
+
+void test_getNSpecialElement2() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 3, 5, 5, 4,
+                            6, 2, 3, 8, 12,
+                            12, 12, 2, 1, 2
+                    },
+            3, 5
+    );
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 3, 5, 5, 4,
+                            6, 2, 9, 10, 12,
+                            1, 3, 2, 4, 5
+                    },
+            3, 5
+    );
+
+    assert(getNSpecialElement2(m1) == 4);
+    assert(getNSpecialElement2(m2) == 8);
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
 void test_printMatrixWithMinNorm() {
     matrix m01 = createMatrixFromArray(
             (int[])
@@ -920,4 +983,5 @@ void test_lab_16_all(){
     test_countNonDescendingRowsMatrices();
     test_printMatrixWithMaxZeroRows();
     test_printMatrixWithMinNorm();
+    test_getNSpecialElement2();
 }
