@@ -204,6 +204,87 @@ void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix){
     outputMatrix(ms[max_index]);
 }
 
+int getMatrixNorm(matrix m){
+    int max_abs = abs(m.values[0][0]);
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        for (int col_index = 0; col_index < m.nCols; ++col_index) {
+            if (max_abs < abs(m.values[row_index][col_index]))
+                max_abs = abs(m.values[row_index][col_index]);
+        }
+    }
+
+    return max_abs;
+}
+
+void printMatrixWithMinNorm(matrix *ms, int n){
+    int norms[n];
+    int min_norm = getMatrixNorm(ms[0]);
+    norms[0] = min_norm;
+
+    for (int i = 1; i < n; ++i) {
+        norms[i] = getMatrixNorm(ms[i]);
+        if (min_norm > norms[i])
+            min_norm = norms[i];
+    }
+
+    for (int i = 0; i < n; ++i) {
+        if (norms[i] == min_norm) {
+            outputMatrix(ms[i]);
+        }
+    }
+}
+
+void test_printMatrixWithMinNorm() {
+    matrix m01 = createMatrixFromArray(
+            (int[])
+                    {
+                            1, -2, 3,
+                            -4, 5, 6,
+                            1, -8, 1
+                    },
+            3, 3
+    );
+
+    matrix m02 = createMatrixFromArray(
+            (int[])
+                    {
+                            0, 0, 0,
+                            1, 4, -7,
+                            -10, 8, -10
+                    },
+            3, 3
+    );
+
+    matrix m03 = createMatrixFromArray(
+            (int[])
+                    {
+                            0, 0, 0,
+                            0, 0, 0,
+                            1, 2, 10
+                    },
+            3, 3
+    );
+
+    matrix m04 = createMatrixFromArray(
+            (int[])
+                    {
+                            3, 0, 0,
+                            0, 0, 3,
+                            0, 0, 8
+                    },
+            3, 3
+    );
+
+
+    matrix ms1[] = {m01, m02, m03, m04};
+
+    printMatrixWithMinNorm(ms1, 4);
+    freeMemMatrix(&m01);
+    freeMemMatrix(&m02);
+    freeMemMatrix(&m03);
+    freeMemMatrix(&m04);
+}
+
 void test_printMatrixWithMaxZeroRows() {
     matrix m01 = createMatrixFromArray(
             (int[])
@@ -838,4 +919,5 @@ void test_lab_16_all(){
     test_swapPenultimateRow();
     test_countNonDescendingRowsMatrices();
     test_printMatrixWithMaxZeroRows();
+    test_printMatrixWithMinNorm();
 }
