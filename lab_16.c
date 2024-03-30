@@ -270,6 +270,67 @@ int getNSpecialElement2(matrix m){
     return counter;
 }
 
+double getScalarProduct(int *a, int *b, int n){
+    double result = 0;
+    for (int i = 0; i < n; ++i) {
+        result += a[i] * b[i];
+    }
+
+    return result;
+}
+
+double getVectorLength(int *a, int n){
+    return sqrt(getScalarProduct(a, a, n));
+}
+
+double getCosine(int *a, int *b, int n){
+    return getScalarProduct(a, b, n) / (
+           getVectorLength(a, n) * getVectorLength(b, n));
+}
+
+int getVectorIndexWithMaxAngle(matrix m, int *b){
+    double min_cos = 1.0;
+    int max_angle_index = 0;
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        double cur_cos = fabs(getCosine(m.values[row_index], b, m.nCols));
+        if(cur_cos < min_cos){
+            min_cos = cur_cos;
+            max_angle_index = row_index;
+        }
+    }
+
+    return max_angle_index;
+}
+
+void test_getVectorIndexWithMaxAngle() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 3, 5, 5, 4,
+                            6, 2, 3, 8, 12,
+                            12, 12, 2, 1, 2
+                    },
+            3, 5
+    );
+    int b1[] = {2, 4, 1, 7, 8};
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 4, 5, 5, 4,
+                            0, 2, 0, 8, 0,
+                            2, 42, 2, 48, 2
+                    },
+            3, 5
+    );
+    int b2[] = {29, 4, 11, 7, 18};
+
+    assert(getVectorIndexWithMaxAngle(m1, b1) == 2);
+    assert(getVectorIndexWithMaxAngle(m2, b2) == 1);
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
 void test_getNSpecialElement2() {
     matrix m1 = createMatrixFromArray(
             (int[])
@@ -984,4 +1045,5 @@ void test_lab_16_all(){
     test_printMatrixWithMaxZeroRows();
     test_printMatrixWithMinNorm();
     test_getNSpecialElement2();
+    test_getVectorIndexWithMaxAngle();
 }
