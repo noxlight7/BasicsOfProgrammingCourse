@@ -302,6 +302,51 @@ int getVectorIndexWithMaxAngle(matrix m, int *b){
     return max_angle_index;
 }
 
+long long getScalarProductRowAndCol(matrix m, int row_index, int col_index){
+    long long result = 0;
+    for (int i = 0; i < m.nRows; ++i) {
+        result += m.values[row_index][i] * m.values[i][col_index];
+    }
+
+    return result;
+}
+
+long long getSpecialScalarProduct(matrix m){
+    return getScalarProductRowAndCol(
+                m,
+                getMaxValuePos(m).rowIndex,
+                getMinValuePos(m).colIndex
+            );
+}
+
+void test_getSpecialScalarProduct() {
+    matrix m1 = createMatrixFromArray(
+            (int[])
+                    {
+                            2, 3, 5, 1,
+                            15, 2, 3, 8,
+                            12, 12, 2, 1,
+                            2, 3, 4, 5
+                    },
+            4, 4
+    );
+
+    matrix m2 = createMatrixFromArray(
+            (int[])
+                    {
+                            10, 4, 5,
+                            1, 0, 1,
+                            2, 2, 2,
+                    },
+            3, 3
+    );
+
+    assert(getSpecialScalarProduct(m1) == 74);
+    assert(getSpecialScalarProduct(m2) == 50);
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
 void test_getVectorIndexWithMaxAngle() {
     matrix m1 = createMatrixFromArray(
             (int[])
@@ -1046,4 +1091,5 @@ void test_lab_16_all(){
     test_printMatrixWithMinNorm();
     test_getNSpecialElement2();
     test_getVectorIndexWithMaxAngle();
+    test_getSpecialScalarProduct();
 }
