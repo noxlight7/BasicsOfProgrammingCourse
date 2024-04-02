@@ -1,9 +1,9 @@
 //
 // Created by curo on 21.03.2024.
 //
-#include "labs_tests.h"
+#include "string/test_string.h"
 
 int main(){
-    test_lab_16_all();
+    test_strings();
     return 0;
 }

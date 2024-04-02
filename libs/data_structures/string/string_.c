@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <malloc.h>
 #include <memory.h>
+#include <ctype.h>
 
 size_t strlen_(const char *begin) {
     const char *end = begin;
@@ -15,11 +16,79 @@ size_t strlen_(const char *begin) {
     return end - begin;
 }
 
-int strcmp(const char *s1, const char *s2){
-    while (*s1 && *s1 == *s2)
-        s1++, s2++;
+char* find(char *begin, char *end, int ch) {
+    while (begin != end && *begin != ch)
+        begin++;
 
-    return *s1 == *s2 ? 0 : (*s1 < *s2 ? -1 : 1);
+    return begin;
+}
+
+char* findNonSpace(char *begin){
+    while (*begin && isspace(*begin))
+        begin++;
+
+    return begin;
+}
+
+char* findSpace(char *begin){
+    while (*begin && !isspace(*begin))
+        begin++;
+
+    return begin;
+}
+
+char* findNonSpaceReverse(char *rbegin, const char *rend){
+    while (rbegin != rend && isspace(*rbegin))
+        rbegin--;
+
+    return rbegin;
+}
+
+char* findSpaceReverse(char *rbegin, const char *rend){
+    while (rbegin != rend && !isspace(*rbegin))
+        rbegin--;
+
+    return rbegin;
+}
+
+int strcmp_(const char *lhs, const char *rhs){
+    while (*lhs && *lhs == *rhs)
+        lhs++, rhs++;
+
+    return *lhs - *rhs;
+}
+
+char* copy_(const char *beginSource, const char *endSource, char *beginDestination){
+    long long bytes_copy = endSource - beginSource;
+    memcpy(beginDestination, beginSource, bytes_copy);
+
+    return beginDestination + bytes_copy;
+}
+
+char* copyIf(char *beginSource, const char *endSource,
+             char *beginDestination, int (*f)(int)){
+    while (beginSource != endSource){
+        if (f(*beginSource)) {
+            *beginDestination = *beginSource;
+            beginDestination++;
+        }
+        beginSource++;
+    }
+
+    return beginDestination;
+}
+
+char* copyIfReverse(char *rbeginSource, const char *rendSource,
+                    char *beginDestination, int (*f)(int)){
+    while (rbeginSource != rendSource){
+        if (f(*rbeginSource)) {
+            *beginDestination = *rbeginSource;
+            beginDestination++;
+        }
+        rbeginSource--;
+    }
+
+    return beginDestination;
 }
 
 char *createCopyStr(const char *s){
@@ -52,7 +121,6 @@ const char *skipSpaces(const char *s){
 
     return s;
 }
-
 
 int getWord(const char *beginSearch, WordDescriptor *word){
     if (isspace(*beginSearch))
