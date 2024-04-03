@@ -6,7 +6,7 @@ set(CMAKE_C_STANDARD 17)
 include ("libs/CMakeLists.txt")
 
 set (files
-        "lab_16.c"
+        "lab_20.c"
         "main.c"
         ${libraries}
 )

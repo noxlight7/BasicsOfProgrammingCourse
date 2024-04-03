@@ -147,3 +147,32 @@ void printWord(WordDescriptor wd, char sep){
 
     putchar(sep);
 }
+
+char* getEndOfString(char *s) {
+    char *end = s + strlen_(s);
+    return end;
+}
+
+// проверить
+void removeAdjacentEqualLetters(char* s) {
+    char *p_read = s + 1;
+    char *p_write = p_read;
+    char current_symbol = *s;
+
+    while (*p_read) {
+        if (current_symbol != *p_read){
+            current_symbol = *p_read;
+            *p_write = current_symbol;
+            p_write++;
+        }
+
+        p_read++;
+    }
+    *p_write = 0;
+}
+
+void removeNonLetters(char *s) {
+    char *endSource = getEndOfString(s);
+    char *destination = copyIf(s, endSource, s, isgraph);
+    *destination = '\0';
+}

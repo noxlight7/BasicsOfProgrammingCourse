@@ -4,6 +4,6 @@
 #include "string/test_string.h"
 
 int main(){
-    test_strings();
+    test_strings2();
     return 0;
 }

@@ -5,6 +5,7 @@
 #ifndef BASICSOFPROGRAMMINGCOURSE_TEST_STRING_H
 #define BASICSOFPROGRAMMINGCOURSE_TEST_STRING_H
 
-void test_strings();
+void test_strings1();
+void test_strings2();
 
 #endif //BASICSOFPROGRAMMINGCOURSE_TEST_STRING_H

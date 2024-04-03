@@ -27,6 +27,8 @@ char* copyIf(char *beginSource, const char *endSource,
 char* copyIfReverse(char *rbeginSource, const char *rendSource,
                     char *beginDestination, int (*f)(int));
 
+void removeAdjacentEqualLetters(char* s);
+
 int getWord(const char *beginSearch, WordDescriptor *word);
 void saveStrBin(const char *s, FILE* f);
 char* loadStrBin(FILE* f);

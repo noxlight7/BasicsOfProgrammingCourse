@@ -116,7 +116,7 @@ void test_copyIfReverse(){
     assert(!memcmp(dest, s3, 13));
 }
 
-void test_strings(){
+void test_strings1(){
     test_strlen_();
     test_findNonSpace();
     test_findSpace();
@@ -126,4 +126,30 @@ void test_strings(){
     test_copy_();
     test_copyIf();
     test_copyIfReverse();
+}
+
+void assertString(const char *expected, char *got,
+                  char const *fileName, char const *funcName,
+                  int line) {
+    if (strcmp_(expected, got)) {
+        fprintf(stderr, "File %s\n", fileName);
+        fprintf(stderr, "%s - failed on line %d\n", funcName, line);
+        fprintf(stderr, "Expected: \"%s\"\n", expected);
+        fprintf(stderr, "Got: \"%s\"\n\n", got);
+    } else
+        fprintf(stderr, "%s - OK\n", funcName);
+}
+
+void test_removeAdjacentEqualLetters(){
+    char s[] = "11112223";
+    removeAdjacentEqualLetters(s);
+    assertString("123",
+                 s,
+                 "string.h",
+                 "removeAdjacentEqualLetters",
+                 144);
+}
+
+void test_strings2(){
+    test_removeAdjacentEqualLetters();
 }
