@@ -8,6 +8,7 @@
 #include <malloc.h>
 #include <memory.h>
 #include <ctype.h>
+char _stringBuffer[MAX_STRING_SIZE + 1];
 
 size_t strlen_(const char *begin) {
     const char *end = begin;
@@ -122,18 +123,11 @@ const char *skipSpaces(const char *s){
     return s;
 }
 
-int getWord(const char *beginSearch, WordDescriptor *word){
-    if (isspace(*beginSearch))
-        beginSearch = skipSpaces(beginSearch);
-
-    if (*beginSearch == 0)
+int getWord(char *beginSearch, WordDescriptor *word) {
+    word->begin = findNonSpace(beginSearch);
+    if (*word->begin == '\0')
         return 0;
-
-    word->begin = beginSearch;
-    while (*beginSearch && !isspace(*beginSearch))
-        beginSearch++;
-
-    word->end = beginSearch;
+    word->end = findSpace(word->begin);
     return 1;
 }
 
@@ -175,4 +169,38 @@ void removeNonLetters(char *s) {
     char *endSource = getEndOfString(s);
     char *destination = copyIf(s, endSource, s, isgraph);
     *destination = '\0';
+}
+
+void digitToStart(WordDescriptor word) {
+    char *endStringBuffer = copy_(word.begin, word.end,
+                                 _stringBuffer);
+    char *recPosition = copyIfReverse(endStringBuffer - 1,
+                                      _stringBuffer - 1,
+                                      word.begin, isdigit);
+    copyIf(_stringBuffer, endStringBuffer, recPosition, isalpha);
+}
+
+int getWordReverse(char *rbegin, char *rend, WordDescriptor *word){
+    word->end = findNonSpaceReverse(rbegin, rend);
+    if (word->end == rend)
+        return 0;
+    word->begin = findSpaceReverse(word->end, rend) + 1;
+    word->end++;
+    return 1;
+}
+
+void reverseWordsInStr(char *s){
+    WordDescriptor wd;
+    while (getWord(s, &wd)){
+        s = wd.end;
+        wd.end--;
+
+        while (wd.begin < wd.end){
+            char c = *wd.begin;
+            *wd.begin = *wd.end;
+            *wd.end = c;
+            wd.end--;
+            wd.begin++;
+        }
+    }
 }

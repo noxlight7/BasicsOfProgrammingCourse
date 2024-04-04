@@ -5,6 +5,11 @@
 #ifndef BASICSOFPROGRAMMINGCOURSE_STRING__H
 #define BASICSOFPROGRAMMINGCOURSE_STRING__H
 
+#define MAX_STRING_SIZE 100
+#define MAX_N_WORDS_IN_STRING 100
+#define MAX_WORD_SIZE 20
+
+
 #include <stdio.h>
 int strcmp(const char *lhs, const char *rhs);
 
@@ -29,7 +34,12 @@ char* copyIfReverse(char *rbeginSource, const char *rendSource,
 
 void removeAdjacentEqualLetters(char* s);
 
-int getWord(const char *beginSearch, WordDescriptor *word);
+int getWord(char *beginSearch, WordDescriptor *word);
+int getWordReverse(char *rbegin, char *rend, WordDescriptor *word);
+void digitToStart(WordDescriptor word);
+
+void reverseWordsInStr(char *s);
+
 void saveStrBin(const char *s, FILE* f);
 char* loadStrBin(FILE* f);
 int wordLen(WordDescriptor);

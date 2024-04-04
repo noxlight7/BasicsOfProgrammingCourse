@@ -7,6 +7,7 @@
 #include <assert.h>
 #include <memory.h>
 #include <ctype.h>
+#include <assert.h>
 
 void test_strlen_(){
     assert(strlen_("12345") == 5);
@@ -150,6 +151,26 @@ void test_removeAdjacentEqualLetters(){
                  144);
 }
 
+void test_getWordReverse(){
+    char s[] = "asdf qwery                         zxcv";
+    WordDescriptor wd;
+    assert(getWordReverse(s + 15, s - 1, &wd));
+    assert(wd.begin == s + 5);
+    assert(wd.end == s + 10);
+}
+
+void test_reverseWordsInStr(){
+    char s[] = "Sword of fortune";
+    reverseWordsInStr(s);
+    assertString("drowS fo enutrof",
+                 s,
+                 "string.h",
+                 "reverseWordsInStr",
+                 144);
+}
+
 void test_strings2(){
     test_removeAdjacentEqualLetters();
+    test_getWordReverse();
+    test_reverseWordsInStr();
 }
