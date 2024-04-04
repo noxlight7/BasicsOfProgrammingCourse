@@ -39,6 +39,8 @@ int getWordReverse(char *rbegin, char *rend, WordDescriptor *word);
 void digitToStart(WordDescriptor word);
 
 void reverseWordsInStr(char *s);
+void replaceDigitSpaces(char *s);
+
 
 void saveStrBin(const char *s, FILE* f);
 char* loadStrBin(FILE* f);

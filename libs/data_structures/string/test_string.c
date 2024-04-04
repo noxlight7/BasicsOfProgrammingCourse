@@ -169,8 +169,19 @@ void test_reverseWordsInStr(){
                  144);
 }
 
+void test_replaceDigitSpaces(){
+    char s[MAX_STRING_SIZE] = "A122tt000x5";
+    replaceDigitSpaces(s);
+    assertString("A     ttx     ",
+                 s,
+                 "string.h",
+                 "replaceDigitSpaces",
+                 122);
+}
+
 void test_strings2(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
     test_reverseWordsInStr();
+    test_replaceDigitSpaces();
 }

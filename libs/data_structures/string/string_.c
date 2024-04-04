@@ -204,3 +204,29 @@ void reverseWordsInStr(char *s){
         }
     }
 }
+
+void strcpy_(char *dst, char *src){
+    while (*src){
+        *dst = *src;
+        dst++, src++;
+    }
+}
+
+void replaceDigitSpaces(char *s){
+    strcpy_(_stringBuffer, s);
+    char *read_ptr = _stringBuffer;
+    char *write_ptr = s;
+    while (*read_ptr){
+        if (isdigit(*read_ptr)) {
+            int digit = *read_ptr - '0';
+            for (int i = 0; i < digit; ++i) {
+                *write_ptr = ' ';
+                write_ptr++;
+            }
+        } else{
+            *write_ptr = *read_ptr;
+            write_ptr++;
+        }
+        read_ptr++;
+    }
+}
