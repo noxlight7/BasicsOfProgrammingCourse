@@ -179,9 +179,21 @@ void test_replaceDigitSpaces(){
                  122);
 }
 
+void test_replace(){
+    char s[MAX_STRING_SIZE] = "dde abc abcd ffk";
+    char out[] = "dde dda abcd ffk";
+    replace(s, "abc", "dda");
+    assertString(out,
+                 s,
+                 "string.h",
+                 "replace",
+                 122);
+}
+
 void test_strings2(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
     test_reverseWordsInStr();
     test_replaceDigitSpaces();
+    test_replace();
 }
