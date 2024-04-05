@@ -285,3 +285,27 @@ void replace(char *source, char *w1, char *w2) {
     recPtr--;
     *recPtr = 0;
 }
+
+bool areWordsOrdered(char *s){
+    WordDescriptor undo;
+    getWord(s, &undo);
+
+    WordDescriptor current;
+    int order;
+    while(getWord(undo.end, &current)){
+        if((order = wordCmp(undo, current)) != 0) {
+            undo = current;
+            break;
+        }
+        undo = current;
+    }
+
+    while (getWord(undo.end, &current)){
+        int res = wordCmp(undo, current);
+        if (res != 0 && res != order)
+            return false;
+        undo = current;
+    }
+
+    return true;
+}

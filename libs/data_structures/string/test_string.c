@@ -190,10 +190,18 @@ void test_replace(){
                  122);
 }
 
+void test_areWordsOrdered(){
+    char s1[] = "abc abc cde efj";
+    char s2[] = "abc cde efj abc";
+    assert(areWordsOrdered(s1));
+    assert(!areWordsOrdered(s2));
+}
+
 void test_strings2(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
     test_reverseWordsInStr();
     test_replaceDigitSpaces();
     test_replace();
+    test_areWordsOrdered();
 }

@@ -11,6 +11,7 @@
 
 
 #include <stdio.h>
+#include <stdbool.h>
 int strcmp(const char *lhs, const char *rhs);
 
 typedef struct WordDescriptor {
@@ -43,6 +44,7 @@ void replaceDigitSpaces(char *s);
 int wordCmp(WordDescriptor w1, WordDescriptor w2);
 char* wordCpy(char *dst, WordDescriptor src);
 void replace(char *source, char *w1, char *w2);
+bool areWordsOrdered(char *s);
 
 
 void saveStrBin(const char *s, FILE* f);
