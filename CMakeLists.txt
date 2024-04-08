@@ -14,6 +14,7 @@ set (files
 add_executable (BasicsOfProgrammingCourse ${files})
 
 target_link_libraries(BasicsOfProgrammingCourse -lm)
+target_link_libraries(BasicsOfProgrammingCourse ncurses)
 
 target_sources (BasicsOfProgrammingCourse PRIVATE ${files})
 source_group (TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${files})

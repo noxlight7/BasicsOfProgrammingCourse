@@ -52,11 +52,7 @@ void reserveV(vectorVoid *v, size_t newCapacity){
                 exit(1);
             }
 
-            if (data != v->data) {
-                memcpy(data, v->data, v->size * v->baseTypeSize);
-                free(v->data);
-                v->data = data;
-            }
+            v->data = data;
 
             if (v->size > newCapacity)
                 v->size = newCapacity;
@@ -117,7 +113,7 @@ void pushBackV(vectorVoid *v, void* x){
 }
 
 void popBackV(vectorVoid *v){
-    if (v->size > 0) {
+    if (v->size == 0) {
         fprintf(stderr, "vectorVoid is empty");
         exit(1);
     }

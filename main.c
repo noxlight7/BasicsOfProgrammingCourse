@@ -5,7 +5,7 @@
 #include "labs_tests.h"
 
 int main(){
-    test_strings2();
-//    test_lab20_all();
+//    test_strings2();
+    test_lab20_all();
     return 0;
 }

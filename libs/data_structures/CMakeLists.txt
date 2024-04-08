@@ -7,6 +7,8 @@ file (GLOB_RECURSE matrix ${CMAKE_CURRENT_LIST_DIR}/matrix/*.[ch])
 file (GLOB_RECURSE string ${CMAKE_CURRENT_LIST_DIR}/string/*.[ch])
 file (GLOB_RECURSE polynomial ${CMAKE_CURRENT_LIST_DIR}/polynomial/*.[ch])
 file (GLOB_RECURSE storehouse ${CMAKE_CURRENT_LIST_DIR}/storehouse/*.[ch])
+file (GLOB_RECURSE file ${CMAKE_CURRENT_LIST_DIR}/file/*.[ch])
+file (GLOB_RECURSE tree ${CMAKE_CURRENT_LIST_DIR}/tree/*.[ch])
 
 set (libraries
         ${vector}
@@ -16,4 +18,6 @@ set (libraries
         ${string}
         ${polynomial}
         ${storehouse}
+        ${file}
+        ${tree}
 )

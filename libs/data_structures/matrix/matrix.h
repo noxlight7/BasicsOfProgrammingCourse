@@ -22,7 +22,9 @@ typedef struct position {
 } position;
 
 matrix getMemMatrix(int nRows, int nCols);
+void zeroMatrix(matrix m);
 matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCols);
+matrix copyFromMatrix(matrix dst, matrix src);
 matrix createMatrixF(FILE* f);
 matrix createMatrixSquareF(FILE* f);
 matrix* createArrayOfMatricesF(FILE* f, int *n);
@@ -67,5 +69,7 @@ void sortRowsByMaxElement(matrix m);
 void sortColsByMinElement(matrix m);
 void sortColsByMaxElement(matrix m);
 bool isMutuallyInverseMatrices(matrix m1, matrix m2);
+
+int getMinInColumn(matrix m, int col_index, int row_start, int row_end);
 
 #endif //BASICSOFPROGRAMMINGCOURSE_MATRIX_H

@@ -19,6 +19,12 @@ matrix getMemMatrix(int nRows, int nCols){
     return m;
 }
 
+void zeroMatrix(matrix m){
+    for (int row_index = 0; row_index < m.nRows; ++row_index) {
+        memset(m.values[row_index], 0, m.nCols);
+    }
+}
+
 matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCols){
     matrix *ms = (matrix*) malloc(sizeof(matrix) * nMatrices);
 
@@ -156,6 +162,19 @@ void outputMatrixF(matrix m, FILE* f){
     for (int row_index = 0; row_index < m.nRows; ++row_index) {
         outputArrayF(m.values[row_index], m.nCols, " ", f);
     }
+}
+
+matrix copyFromMatrix(matrix dst, matrix src){
+    if (dst.nRows != src.nRows || dst.nCols != src.nCols){
+        freeMemMatrix(&dst);
+        dst = getMemMatrix(src.nRows, src.nCols);
+    }
+
+    for (int row_index = 0; row_index < src.nRows; ++row_index) {
+        copy(dst.values[row_index], src.values[row_index], src.nCols);
+    }
+
+    return dst;
 }
 
 void outputMatrixSquareF(matrix m, FILE* f){
@@ -431,4 +450,13 @@ bool isMutuallyInverseMatrices(matrix m1, matrix m2){
     freeMemMatrix(&res);
 
     return ret;
+}
+
+int getMinInColumn(matrix m, int col_index, int row_start, int row_end){
+    int min = m.values[row_start][col_index];
+    for (int row_index = row_start + 1; row_index <= row_end; ++row_index) {
+        min = minInt(min, m.values[row_index][col_index]);
+    }
+
+    return min;
 }
