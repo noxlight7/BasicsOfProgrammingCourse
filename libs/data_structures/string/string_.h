@@ -60,5 +60,6 @@ char* loadStrBin(FILE* f);
 int wordLen(WordDescriptor);
 void printWord(WordDescriptor, char sep);
 char *createCopyStr(const char *s);
+int countPalindromes(char *s);
 
 #endif //BASICSOFPROGRAMMINGCOURSE_STRING__H

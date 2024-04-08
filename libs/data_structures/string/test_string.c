@@ -202,6 +202,13 @@ void test_getBagOfWords(){
     getBagOfWords(&_bag, s);
 }
 
+void test_countPalindromes(){
+    char s[] = "asdf,ogo,assa,forest,minim";
+    char s2[] = "asdf,ogo,assa,forest,minim,got,leel,of";
+    assert(countPalindromes(s) == 3);
+    assert(countPalindromes(s2) == 4);
+}
+
 void test_strings2(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
@@ -210,4 +217,5 @@ void test_strings2(){
     test_replace();
     test_areWordsOrdered();
     test_getBagOfWords();
+    test_countPalindromes();
 }
