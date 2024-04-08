@@ -209,6 +209,18 @@ void test_countPalindromes(){
     assert(countPalindromes(s2) == 4);
 }
 
+void test_mergeStr(){
+    char s[] = "word1   word3 \nword5\tword6  word7";
+    char s2[] = "word2  word4";
+    char out[MAX_STRING_SIZE];
+    mergeStr(s, s2, out);
+    assertString("word1 word2 word3 word4 word5 word6 word7",
+                 out,
+                 "string.h",
+                 "mergeStr",
+                 144);
+}
+
 void test_strings2(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
@@ -218,4 +230,5 @@ void test_strings2(){
     test_areWordsOrdered();
     test_getBagOfWords();
     test_countPalindromes();
+    test_mergeStr();
 }
