@@ -11,6 +11,8 @@
 #include "array/array.h"
 
 char _stringBuffer[MAX_STRING_SIZE + 1];
+BagOfWords _bag;
+BagOfWords _bag2;
 
 size_t strlen_(const char *begin) {
     const char *end = begin;
@@ -308,4 +310,17 @@ bool areWordsOrdered(char *s){
     }
 
     return true;
+}
+
+void getBagOfWords(BagOfWords *bag, char *s) {
+    WordDescriptor word1 = {s,s};
+    bag->size = 0;
+
+    while (getWord(word1.end, &word1)) {
+        bag->words [bag->size++] = word1;
+    }
+
+    for (int i = ((int) bag->size) - 1; i >= 0 ; --i) {
+        printWord(bag->words[i], '\n');
+    }
 }

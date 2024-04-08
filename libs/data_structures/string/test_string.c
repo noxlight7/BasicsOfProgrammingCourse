@@ -197,6 +197,11 @@ void test_areWordsOrdered(){
     assert(!areWordsOrdered(s2));
 }
 
+void test_getBagOfWords(){
+    char s[] = "asdf ewt    lokpf \n \t 23";
+    getBagOfWords(&_bag, s);
+}
+
 void test_strings2(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
@@ -204,4 +209,5 @@ void test_strings2(){
     test_replaceDigitSpaces();
     test_replace();
     test_areWordsOrdered();
+    test_getBagOfWords();
 }

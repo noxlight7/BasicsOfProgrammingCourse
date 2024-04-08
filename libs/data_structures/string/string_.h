@@ -20,6 +20,14 @@ typedef struct WordDescriptor {
 // позиция первого символа, после последнего символа слова
 } WordDescriptor;
 
+typedef struct BagOfWords {
+    WordDescriptor words[MAX_N_WORDS_IN_STRING];
+    size_t size;
+} BagOfWords;
+
+extern BagOfWords _bag;
+extern BagOfWords _bag2;
+
 size_t strlen_(const char *begin);
 char* find(char *begin, char *end, int ch);
 char* findNonSpace(char *begin);
@@ -45,7 +53,7 @@ int wordCmp(WordDescriptor w1, WordDescriptor w2);
 char* wordCpy(char *dst, WordDescriptor src);
 void replace(char *source, char *w1, char *w2);
 bool areWordsOrdered(char *s);
-
+void getBagOfWords(BagOfWords *bag, char *s);
 
 void saveStrBin(const char *s, FILE* f);
 char* loadStrBin(FILE* f);
