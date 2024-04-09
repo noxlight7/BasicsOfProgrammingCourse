@@ -385,3 +385,30 @@ void getWordsInReverseOrder(char *s) {
     s--;
     *s = 0;
 }
+
+bool isAlphaInWord(WordDescriptor *word, char c) {
+    char* ptr = word->begin;
+    while (ptr != word->end) {
+        if (*ptr == c)
+            return true;
+        ptr++;
+    }
+    return false;
+
+}
+
+WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(
+        char *s, WordDescriptor *w) {
+    WordDescriptor word;
+    if (!getWord(s, w))
+        return EMPTY_STRING;
+    if (isAlphaInWord(w, 'A'))
+        return FIRST_WORD_WITH_A;
+    while (getWord(w->end, &word)) {
+        if (isAlphaInWord(&word, 'A'))
+            return WORD_FOUND;
+        else
+            *w = word;
+    }
+    return NOT_FOUND_A_WORD_WITH_A;
+}
