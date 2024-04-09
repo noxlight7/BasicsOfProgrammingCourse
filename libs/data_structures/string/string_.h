@@ -72,4 +72,6 @@ void mergeStr(char* s1, char* s2, char* out);
 void getWordsInReverseOrder(char *s);
 WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(
         char *s, WordDescriptor *w);
+void wordDescriptorToString(WordDescriptor word, char *destination);
+WordDescriptor lastWordInFirstStringInSecondString(char* s1, char* s2);
 #endif //BASICSOFPROGRAMMINGCOURSE_STRING__H

@@ -258,6 +258,24 @@ void testAll_getWordBeforeFirstWordWithA() {
            NOT_FOUND_A_WORD_WITH_A);
 }
 
+void testAll_lastWordInFirstStringInSecondString() {
+    WordDescriptor word;
+    char s1[] = "word1 word2 word3";
+    char s2[] = "word4 word5 word6";
+    assert(
+            lastWordInFirstStringInSecondString(s1, s2).begin == NULL
+    );
+    char s3[] = "";
+    assert(
+            lastWordInFirstStringInSecondString(s3, s3).begin == NULL
+    );
+    char s4[] = "word4 word2 word5";
+    word = lastWordInFirstStringInSecondString(s1, s4);
+    char got[MAX_STRING_SIZE];
+    wordDescriptorToString(word, got);
+    ASSERT_STRING("word2", got);
+}
+
 void test_strings2(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
@@ -270,4 +288,5 @@ void test_strings2(){
     test_mergeStr();
     test_getWordsInReverseOrder();
     testAll_getWordBeforeFirstWordWithA();
+    testAll_lastWordInFirstStringInSecondString();
 }

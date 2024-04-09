@@ -320,9 +320,9 @@ void getBagOfWords(BagOfWords *bag, char *s) {
         bag->words [bag->size++] = word1;
     }
 
-    for (int i = ((int) bag->size) - 1; i >= 0 ; --i) {
-        printWord(bag->words[i], '\n');
-    }
+//    for (int i = ((int) bag->size) - 1; i >= 0 ; --i) {
+//        printWord(bag->words[i], '\n');
+//    }
 }
 
 int countPalindromes(char *s) {
@@ -411,4 +411,21 @@ WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(
             *w = word;
     }
     return NOT_FOUND_A_WORD_WITH_A;
+}
+
+void wordDescriptorToString(WordDescriptor word, char *destination) {
+    destination = wordCpy(destination, word);
+    *destination = 0;
+}
+
+WordDescriptor lastWordInFirstStringInSecondString(char* s1, char* s2) {
+    getBagOfWords(&_bag, s1);
+    getBagOfWords(&_bag2, s2);
+    for (int bag1_index =_bag.size-1; bag1_index >= 0; --bag1_index) {
+        for (int bag2_index = 0; bag2_index < _bag2.size; ++bag2_index) {
+            if (!wordCmp(_bag.words[bag1_index], _bag2.words[bag2_index]))
+                return _bag.words[bag1_index];
+        }
+    }
+    return (WordDescriptor) {NULL, NULL};
 }
