@@ -221,6 +221,16 @@ void test_mergeStr(){
                  144);
 }
 
+void test_getWordsInReverseOrder(){
+    char s[] = "word1 word2 word3\n word4 word5\tword6\tword7";
+    getWordsInReverseOrder(s);
+    assertString("word7 word6 word5 word4 word3 word2 word1",
+                 s,
+                 "string.h",
+                 "getWordsInReverseOrder",
+                 144);
+}
+
 void test_strings2(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
@@ -231,4 +241,5 @@ void test_strings2(){
     test_getBagOfWords();
     test_countPalindromes();
     test_mergeStr();
+    test_getWordsInReverseOrder();
 }
