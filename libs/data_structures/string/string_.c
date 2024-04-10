@@ -488,3 +488,19 @@ void deleteEqualLastWord(char* s) {
 
     *write_ptr = '\0';
 }
+
+WordDescriptor getFirstWordS1InS2(char* s1, char* s2) {
+    getBagOfWords(&_bag, s1);
+    getBagOfWords(&_bag2, s2);
+    for (int bag1_index = 0; bag1_index < _bag.size; ++bag1_index) {
+        for (int bag2_index = 0; bag2_index < _bag2.size; ++bag2_index) {
+            if (!wordCmp(_bag.words[bag1_index], _bag2.words[bag2_index])) {
+                if (bag1_index)
+                    return _bag.words[bag1_index - 1];
+                else
+                    return (WordDescriptor) {NULL, NULL};
+            }
+        }
+    }
+    return (WordDescriptor) {NULL, NULL};
+}

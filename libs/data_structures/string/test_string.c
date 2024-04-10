@@ -313,6 +313,26 @@ void test_deleteEqualLastWord() {
     ASSERT_STRING("", s4);
 }
 
+void test_getFirstWordS1InS2() {
+    char s1[] = "word1 word2 word3 word2";
+    char s2[] = "word4 word3 word5";
+    char s3[] = "";
+    char s4[] = "word5";
+    char s5[] = "word5";
+    char got[MAX_STRING_SIZE];
+    WordDescriptor word;
+
+    word = getFirstWordS1InS2(s1, s2);
+    wordDescriptorToString(word, got);
+    ASSERT_STRING("word2", got);
+
+    word = getFirstWordS1InS2(s3, s4);
+    assert(word.begin == NULL);
+
+    word = getFirstWordS1InS2(s5, s5);
+    assert(word.begin == NULL);
+}
+
 void test_strings2(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
@@ -329,4 +349,5 @@ void test_strings2(){
     test_haveEqualWords();
     test_haveWordWithEqualSymbolSet();
     test_deleteEqualLastWord();
+    test_getFirstWordS1InS2();
 }
