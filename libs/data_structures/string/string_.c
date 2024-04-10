@@ -465,3 +465,26 @@ bool haveWordWithEqualSymbolSet(char* s) {
     }
     return haveEqualWordsInBag(_bag);
 }
+
+void deleteEqualLastWord(char* s) {
+    WordDescriptor last_word;
+    getWordReverse(getEndOfString(s) - 1, s - 1, &last_word);
+    char* read_ptr = s;
+    char* write_ptr = s;
+
+    WordDescriptor word;
+    while (getWord(read_ptr, &word)) {
+        if (wordCmp(word, last_word)) {
+            write_ptr = wordCpy(write_ptr, word);
+            *write_ptr = ' ';
+            write_ptr++;
+        }
+
+        read_ptr = word.end;
+    }
+
+    if (write_ptr != s)
+        write_ptr--;
+
+    *write_ptr = '\0';
+}
