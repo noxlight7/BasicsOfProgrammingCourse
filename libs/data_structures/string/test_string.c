@@ -286,6 +286,16 @@ void test_haveEqualWords() {
     assert(haveEqualWords(s3));
 }
 
+void test_haveWordWithEqualSymbolSet() {
+    char s1[] = "word1 w2dor word3";
+    char s2[] = "word4 w5odr word5";
+    char s3[] = "asd dfg kl dsf trty gfgd gree sdf errf";
+
+    assert(!haveWordWithEqualSymbolSet(s1));
+    assert(haveWordWithEqualSymbolSet(s2));
+    assert(haveWordWithEqualSymbolSet(s3));
+}
+
 void test_strings2(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
@@ -300,4 +310,5 @@ void test_strings2(){
     testAll_getWordBeforeFirstWordWithA();
     testAll_lastWordInFirstStringInSecondString();
     test_haveEqualWords();
+    test_haveWordWithEqualSymbolSet();
 }

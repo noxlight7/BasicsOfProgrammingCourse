@@ -75,4 +75,5 @@ WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(
 void wordDescriptorToString(WordDescriptor word, char *destination);
 WordDescriptor lastWordInFirstStringInSecondString(char* s1, char* s2);
 bool haveEqualWords(char* s);
+bool haveWordWithEqualSymbolSet(char* s);
 #endif //BASICSOFPROGRAMMINGCOURSE_STRING__H

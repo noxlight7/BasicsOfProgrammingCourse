@@ -430,13 +430,38 @@ WordDescriptor lastWordInFirstStringInSecondString(char* s1, char* s2) {
     return (WordDescriptor) {NULL, NULL};
 }
 
-bool haveEqualWords(char* s) {
-    getBagOfWords(&_bag, s);
+bool haveEqualWordsInBag(BagOfWords bag) {
     for (int word1_index = 0; word1_index < _bag.size; ++word1_index) {
-        for (int word2_index = word1_index + 1; word2_index < _bag.size; ++word2_index) {
+        for (int word2_index = word1_index+1; word2_index < _bag.size;
+             ++word2_index) {
             if (!wordCmp(_bag.words[word1_index], _bag.words[word2_index]))
                 return true;
         }
     }
     return false;
+}
+
+bool haveEqualWords(char* s) {
+    getBagOfWords(&_bag, s);
+    return haveEqualWordsInBag(_bag);
+}
+
+// Сравнвает два числа
+int compare(const void *a, const void *b) {
+    return (*(char*)a - *(char*)b);
+}
+
+// Функция для сортировки массива символов
+void sortCharArray(char arr[], int n) {
+    qsort(arr, n, sizeof(char), compare);
+}
+
+bool haveWordWithEqualSymbolSet(char* s) {
+    strcpy_(_stringBuffer, s);
+    getBagOfWords(&_bag, _stringBuffer);
+    for (int word_index = 0; word_index < _bag.size; ++word_index) {
+        sortCharArray(_bag.words[word_index].begin,
+                      wordLen(_bag.words[word_index]));
+    }
+    return haveEqualWordsInBag(_bag);
 }
