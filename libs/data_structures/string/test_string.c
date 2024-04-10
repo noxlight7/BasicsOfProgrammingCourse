@@ -276,6 +276,16 @@ void testAll_lastWordInFirstStringInSecondString() {
     ASSERT_STRING("word2", got);
 }
 
+void test_haveEqualWords() {
+    char s1[] = "word1 word2 word3";
+    char s2[] = "word4 word5 word5";
+    char s3[] = "asd dfg kl sdf trty gfgd gree sdf errf";
+
+    assert(!haveEqualWords(s1));
+    assert(haveEqualWords(s2));
+    assert(haveEqualWords(s3));
+}
+
 void test_strings2(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
@@ -289,4 +299,5 @@ void test_strings2(){
     test_getWordsInReverseOrder();
     testAll_getWordBeforeFirstWordWithA();
     testAll_lastWordInFirstStringInSecondString();
+    test_haveEqualWords();
 }

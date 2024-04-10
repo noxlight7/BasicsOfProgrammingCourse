@@ -429,3 +429,14 @@ WordDescriptor lastWordInFirstStringInSecondString(char* s1, char* s2) {
     }
     return (WordDescriptor) {NULL, NULL};
 }
+
+bool haveEqualWords(char* s) {
+    getBagOfWords(&_bag, s);
+    for (int word1_index = 0; word1_index < _bag.size; ++word1_index) {
+        for (int word2_index = word1_index + 1; word2_index < _bag.size; ++word2_index) {
+            if (!wordCmp(_bag.words[word1_index], _bag.words[word2_index]))
+                return true;
+        }
+    }
+    return false;
+}
