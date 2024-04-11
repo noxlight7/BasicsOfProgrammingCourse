@@ -529,3 +529,29 @@ void deletePalindromes(char* s) {
 
     *ptr = '\0';
 }
+
+void fillStrWords(char* s, BagOfWords bag, size_t start_copy_index) {
+    char *ptr = getEndOfString(s);
+    if (ptr != s){
+        *ptr = ' ';
+        ptr++;
+    }
+    for (size_t i = start_copy_index; i < bag.size; ++i) {
+        ptr = wordCpy(ptr, bag.words[i]);
+        *ptr = ' ';
+        ptr++;
+    }
+    ptr--;
+    *ptr = '\0';
+}
+
+void fillShorterStr(char* s1, char* s2) {
+    getBagOfWords(&_bag, s1);
+    getBagOfWords(&_bag2, s2);
+    if (_bag.size > _bag2.size){
+        fillStrWords(s2, _bag, _bag2.size);
+    }
+    if (_bag.size < _bag2.size){
+        fillStrWords(s1, _bag2, _bag.size);
+    }
+}

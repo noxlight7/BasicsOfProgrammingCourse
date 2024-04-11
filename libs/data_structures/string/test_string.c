@@ -350,6 +350,21 @@ void test_deletePalindromes() {
     ASSERT_STRING("", s4);
 }
 
+void test_fillShorterStr() {
+    char s1[MAX_STRING_SIZE] = "word1 wordrow word3 asa";
+    char s2[MAX_STRING_SIZE] = "word4 w5odr word5";
+    char s3[MAX_STRING_SIZE] = "";
+    char s4[MAX_STRING_SIZE] = "";
+
+    fillShorterStr(s1, s2);
+    fillShorterStr(s3, s1);
+    fillShorterStr(s4, s4);
+
+    ASSERT_STRING("word4 w5odr word5 asa", s2);
+    ASSERT_STRING("word1 wordrow word3 asa", s3);
+    ASSERT_STRING("", s4);
+}
+
 void test_strings2(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
@@ -368,4 +383,5 @@ void test_strings2(){
     test_deleteEqualLastWord();
     test_getFirstWordS1InS2();
     test_deletePalindromes();
+    test_fillShorterStr();
 }
