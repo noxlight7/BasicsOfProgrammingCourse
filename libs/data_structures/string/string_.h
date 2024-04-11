@@ -81,4 +81,5 @@ WordDescriptor getFirstWordS1InS2(char* s1, char* s2);
 bool isPalindromeS(WordDescriptor word);
 void deletePalindromes(char* ptr);
 void fillShorterStr(char* s1, char* s2);
+bool isAllWordLettersInStr(char* s, WordDescriptor word);
 #endif //BASICSOFPROGRAMMINGCOURSE_STRING__H

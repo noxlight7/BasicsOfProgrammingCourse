@@ -555,3 +555,27 @@ void fillShorterStr(char* s1, char* s2) {
         fillStrWords(s1, _bag2, _bag.size);
     }
 }
+
+bool isAllWordLettersInStr(char* s, WordDescriptor word) {
+    const int alphabet_size = 26;
+    char buffer[alphabet_size];
+    memset(buffer, 0, alphabet_size);
+    int size = 0;
+    char* ptr = word.begin;
+    while (ptr != word.end) {
+        if (buffer[*ptr-'a'] == 0) {
+            buffer[*ptr - 'a'] = 1;
+            size++;
+        }
+        ptr++;
+    }
+    ptr = s;
+    while (*ptr && size) {
+        if (buffer[*ptr -'a']) {
+            buffer[*ptr-'a'] = 0;
+            size--;
+        }
+        ptr++;
+    }
+    return size==0;
+}

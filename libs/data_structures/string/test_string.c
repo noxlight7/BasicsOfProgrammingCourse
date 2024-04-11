@@ -365,6 +365,33 @@ void test_fillShorterStr() {
     ASSERT_STRING("", s4);
 }
 
+void test_isAllWordLettersInStr() {
+    char s1[] = "word wordrow word asa";
+    char s2[] = "word wodr word";
+    char s3[] = "asd";
+    char s4[] = "";
+
+    char ws1[] = "wdosaaaarwwworrrrr";
+    char ws2[] = "wordwodrqword";
+    char ws3[] = "";
+    char ws4[] = "sad";
+
+    WordDescriptor word1;
+    WordDescriptor word2;
+    WordDescriptor word3;
+    WordDescriptor word4;
+
+    getWord(ws1, &word1);
+    getWord(ws2, &word2);
+    word3 = (WordDescriptor) {ws3, ws3};
+    getWord(ws4, &word4);
+
+    assert(isAllWordLettersInStr(s1, word1));
+    assert(!isAllWordLettersInStr(s2, word2));
+    assert(isAllWordLettersInStr(s3, word3));
+    assert(!isAllWordLettersInStr(s4, word4));
+}
+
 void test_strings2(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
@@ -384,4 +411,5 @@ void test_strings2(){
     test_getFirstWordS1InS2();
     test_deletePalindromes();
     test_fillShorterStr();
+    test_isAllWordLettersInStr();
 }
