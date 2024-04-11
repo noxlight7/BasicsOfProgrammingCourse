@@ -333,6 +333,23 @@ void test_getFirstWordS1InS2() {
     assert(word.begin == NULL);
 }
 
+void test_deletePalindromes() {
+    char s1[] = "word1 wordrow word3 asa";
+    char s2[] = "word4 w5odr word5";
+    char s3[] = "";
+    char s4[] = "asa";
+
+    deletePalindromes(s1);
+    deletePalindromes(s2);
+    deletePalindromes(s3);
+    deletePalindromes(s4);
+
+    ASSERT_STRING("word1 word3", s1);
+    ASSERT_STRING("word4 w5odr word5", s2);
+    ASSERT_STRING("", s3);
+    ASSERT_STRING("", s4);
+}
+
 void test_strings2(){
     test_removeAdjacentEqualLetters();
     test_getWordReverse();
@@ -350,4 +367,5 @@ void test_strings2(){
     test_haveWordWithEqualSymbolSet();
     test_deleteEqualLastWord();
     test_getFirstWordS1InS2();
+    test_deletePalindromes();
 }

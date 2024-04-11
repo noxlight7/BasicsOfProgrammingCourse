@@ -78,4 +78,6 @@ bool haveEqualWords(char* s);
 bool haveWordWithEqualSymbolSet(char* s);
 void deleteEqualLastWord(char* s);
 WordDescriptor getFirstWordS1InS2(char* s1, char* s2);
+bool isPalindromeS(WordDescriptor word);
+void deletePalindromes(char* ptr);
 #endif //BASICSOFPROGRAMMINGCOURSE_STRING__H

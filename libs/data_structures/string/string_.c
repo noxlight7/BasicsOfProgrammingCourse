@@ -504,3 +504,28 @@ WordDescriptor getFirstWordS1InS2(char* s1, char* s2) {
     }
     return (WordDescriptor) {NULL, NULL};
 }
+
+bool isPalindromeS(WordDescriptor word) {
+    word.end--;
+    while (word.begin < word.end && *word.begin == *word.end) {
+        word.begin++;
+        word.end--;
+    }
+    return word.begin >= word.end;
+}
+
+void deletePalindromes(char* s) {
+    char *ptr = s;
+    WordDescriptor word = {ptr, ptr};
+    while (getWord(word.end, &word))
+        if (!isPalindromeS(word)) {
+            ptr = wordCpy(ptr, word);
+            if (*ptr)
+                *ptr = ' ';
+            ptr++;
+        }
+    if(ptr != s)
+        ptr--;
+
+    *ptr = '\0';
+}
