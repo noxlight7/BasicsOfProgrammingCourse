@@ -53,6 +53,7 @@ void removeAdjacentEqualLetters(char* s);
 int getWord(char *beginSearch, WordDescriptor *word);
 int getWordReverse(char *rbegin, char *rend, WordDescriptor *word);
 void digitToStart(WordDescriptor word);
+char* getEndOfString(char *s);
 
 void reverseWordsInStr(char *s);
 void replaceDigitSpaces(char *s);
@@ -68,7 +69,7 @@ int wordLen(WordDescriptor);
 void printWord(WordDescriptor, char sep);
 char *createCopyStr(const char *s);
 int countPalindromes(char *s);
-void mergeStr(char* s1, char* s2, char* out);
+void mergeStr(char* s1, char* s2, char* rec_ptr);
 void getWordsInReverseOrder(char *s);
 WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(
         char *s, WordDescriptor *w);

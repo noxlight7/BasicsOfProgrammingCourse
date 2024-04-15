@@ -142,13 +142,15 @@ void assertString(const char *expected, char *got,
 }
 
 void test_removeAdjacentEqualLetters(){
-    char s[] = "11112223";
-    removeAdjacentEqualLetters(s);
-    assertString("123",
-                 s,
-                 "string.h",
-                 "removeAdjacentEqualLetters",
-                 144);
+    char s1[] = "11112223";
+    char s2[] = "";
+    char s3[] = "11112223";
+    removeAdjacentEqualLetters(s1);
+    removeAdjacentEqualLetters(s2);
+    removeAdjacentEqualLetters(s3);
+    ASSERT_STRING("123", s1);
+    ASSERT_STRING("", s2);
+    ASSERT_STRING("123", s3);
 }
 
 void test_getWordReverse(){
@@ -157,56 +159,95 @@ void test_getWordReverse(){
     assert(getWordReverse(s + 15, s - 1, &wd));
     assert(wd.begin == s + 5);
     assert(wd.end == s + 10);
+
+    char s2[] = "adf \ttgddv cadf\t yhyt";
+    char got[MAX_WORD_SIZE];
+    assert(getWordReverse(getEndOfString(s2) - 1, s2 - 1, &wd));
+    wordDescriptorToString(wd, got);
+    ASSERT_STRING("yhyt", got);
+
+    char s3[] = "";
+    assert(!getWordReverse(s3 - 1, s3 - 1, &wd));
 }
 
 void test_reverseWordsInStr(){
-    char s[] = "Sword of fortune";
-    reverseWordsInStr(s);
-    assertString("drowS fo enutrof",
-                 s,
-                 "string.h",
-                 "reverseWordsInStr",
-                 144);
+    char s1[] = "";
+    char s2[] = "Sword of fortune";
+    char s3[] = "abcba sos";
+    reverseWordsInStr(s1);
+    reverseWordsInStr(s2);
+    reverseWordsInStr(s3);
+    ASSERT_STRING("drowS fo enutrof", s2);
+    ASSERT_STRING(s3, s3);
 }
 
 void test_replaceDigitSpaces(){
-    char s[MAX_STRING_SIZE] = "A122tt000x5";
-    replaceDigitSpaces(s);
-    assertString("A     ttx     ",
-                 s,
-                 "string.h",
-                 "replaceDigitSpaces",
-                 122);
+    char s1[MAX_STRING_SIZE] = "A122tt000x5";
+    char s2[MAX_STRING_SIZE] = "Attx";
+    char s3[MAX_STRING_SIZE] = "";
+    replaceDigitSpaces(s1);
+    replaceDigitSpaces(s2);
+    replaceDigitSpaces(s3);
+    ASSERT_STRING("A     ttx     ", s1);
+    ASSERT_STRING(s2, s2);
+    ASSERT_STRING(s3, s3);
 }
 
 void test_replace(){
-    char s[MAX_STRING_SIZE] = "dde abc abcd ffk";
-    char out[] = "dde dda abcd ffk";
-    replace(s, "abc", "dda");
-    assertString(out,
-                 s,
-                 "string.h",
-                 "replace",
-                 122);
+    char s1[MAX_STRING_SIZE] = "dde abc abcd ffk";
+    char s2[MAX_STRING_SIZE] = "dde abc abcd ffk";
+    char s3[MAX_STRING_SIZE] = "dde abc abcd ffk";
+    char s4[MAX_STRING_SIZE] = "";
+    char out1[] = "dde dda abcd ffk";
+    char out2[] = "dde abc dda ffk";
+    char out3[] = "dde abc abcd abcdefg";
+    char out4[] = "";
+    replace(s1, "abc", "dda");
+    replace(s2, "abcd", "dda");
+    replace(s3, "ffk", "abcdefg");
+    replace(s4, "ffk", "abcdefg");
+    ASSERT_STRING(out1, s1);
+    ASSERT_STRING(out2, s2);
+    ASSERT_STRING(out3, s3);
+    ASSERT_STRING(out4, s4);
 }
 
 void test_areWordsOrdered(){
     char s1[] = "abc abc cde efj";
     char s2[] = "abc cde efj abc";
+    char s3[] = "efj cde abc abc";
+    char s4[] = "";
     assert(areWordsOrdered(s1));
     assert(!areWordsOrdered(s2));
+    assert(areWordsOrdered(s3));
+    assert(areWordsOrdered(s4));
 }
 
 void test_getBagOfWords(){
     char s[] = "asdf ewt    lokpf \n \t 23";
     getBagOfWords(&_bag, s);
+    char got[MAX_WORD_SIZE];
+
+    wordDescriptorToString(_bag.words[0], got);
+    ASSERT_STRING("asdf", got);
+    wordDescriptorToString(_bag.words[1], got);
+    ASSERT_STRING("ewt", got);
+    wordDescriptorToString(_bag.words[2], got);
+    ASSERT_STRING("lokpf", got);
+    wordDescriptorToString(_bag.words[3], got);
+    ASSERT_STRING("23", got);
+
+    getBagOfWords(&_bag, "");
+    assert(_bag.size == 0);
 }
 
 void test_countPalindromes(){
     char s[] = "asdf,ogo,assa,forest,minim";
     char s2[] = "asdf,ogo,assa,forest,minim,got,leel,of";
+    char s3[] = "";
     assert(countPalindromes(s) == 3);
     assert(countPalindromes(s2) == 4);
+    assert(countPalindromes(s3) == 0);
 }
 
 void test_mergeStr(){
@@ -214,21 +255,24 @@ void test_mergeStr(){
     char s2[] = "word2  word4";
     char out[MAX_STRING_SIZE];
     mergeStr(s, s2, out);
-    assertString("word1 word2 word3 word4 word5 word6 word7",
-                 out,
-                 "string.h",
-                 "mergeStr",
-                 144);
+    ASSERT_STRING("word1 word2 word3 word4 word5 word6 word7", out);
+    char s3[] = "";
+    mergeStr(s3, s3, out);
+    ASSERT_STRING("", out);
+    mergeStr(s2, s2, out);
+    ASSERT_STRING("word2 word2 word4 word4", out);
 }
 
 void test_getWordsInReverseOrder(){
-    char s[] = "word1 word2 word3\n word4 word5\tword6\tword7";
-    getWordsInReverseOrder(s);
-    assertString("word7 word6 word5 word4 word3 word2 word1",
-                 s,
-                 "string.h",
-                 "getWordsInReverseOrder",
-                 144);
+    char s1[] = "word1 word2 word3\n word4 word5\tword6\tword7";
+    char s2[] = "asdf\n effv dvvg\tdf";
+    char s3[] = "";
+    getWordsInReverseOrder(s1);
+    getWordsInReverseOrder(s2);
+    getWordsInReverseOrder(s3);
+    ASSERT_STRING("word7 word6 word5 word4 word3 word2 word1", s1);
+    ASSERT_STRING("df dvvg effv asdf", s2);
+    ASSERT_STRING("", s3);
 }
 
 void testAll_getWordBeforeFirstWordWithA() {

@@ -214,6 +214,7 @@ void strcpy_(char *dst, char *src){
         *dst = *src;
         dst++, src++;
     }
+    *dst = 0;
 }
 
 void replaceDigitSpaces(char *s){
@@ -268,7 +269,7 @@ void replace(char *source, char *w1, char *w2) {
         readPtr = source;
         recPtr = source;
     } else {
-        copy_(source, getEndOfString(source), _stringBuffer);
+        copy_(source, getEndOfString(source) + 1, _stringBuffer);
         readPtr = _stringBuffer;
         recPtr = source;
     }
@@ -351,6 +352,7 @@ int countPalindromes(char *s) {
 }
 
 void mergeStr(char* s1, char* s2, char* out) {
+    char* rec_ptr = out;
     WordDescriptor word1, word2;
     bool isW1Found, isW2Found;
     char *beginSearch1 = s1, *beginSearch2 = s2;
@@ -359,22 +361,27 @@ void mergeStr(char* s1, char* s2, char* out) {
             isW1Found || isW2Found) {
         if (isW1Found) {
             beginSearch1 = word1.end;
-            out = wordCpy( out, word1);
-            *out = ' ';
-            out++;
+            rec_ptr = wordCpy(rec_ptr, word1);
+            *rec_ptr = ' ';
+            rec_ptr++;
         }
         if (isW2Found) {
             beginSearch2 = word2.end;
-            out = wordCpy( out, word2);
-            *out = ' ';
-            out++;
+            rec_ptr = wordCpy(rec_ptr, word2);
+            *rec_ptr = ' ';
+            rec_ptr++;
         }
     }
-    out--;
-    *out = 0;
+    if (rec_ptr != out)
+        rec_ptr--;
+
+    *rec_ptr = 0;
 }
 
 void getWordsInReverseOrder(char *s) {
+    if (*s == 0)
+        return;
+
     strcpy_(_stringBuffer, s);
     WordDescriptor word = {getEndOfString(_stringBuffer), NULL};
     while (getWordReverse(word.begin-1, _stringBuffer-1, &word)) {
